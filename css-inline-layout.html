@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <style>
+   * {
+  xbackground-color: rgba(0,0,0,0.08);
+  xbox-shadow: inset 0 0 1px red;
+}
+
+body {
+  margin: 0;
+}
+
+header {
+  background-color: black;
+}
+
+.header {
+  background-color: black;
+  color: white;
+  width: 600px;
+  margin: auto;
+}
+
+main {
+  width: 600px;
+  margin: 20px auto;
+}
+
+.grid2 {
+  width: 600px;
+  margin: auto;
+  font-size: 0;
+}
+
+.item2 {
+  display: inline-block;
+  width: 180px;
+  height: 40px;
+  box-sizing: border-box;
+  border: 3px solid black;
+  margin-bottom: 15px;
+  font-size:16px;
+  background-color: #F5C3CB;
+  
+}
+
+.item2:not(:nth-child(3n+3)) {
+  margin-right: 30px;
+}
+
+.grid3-wrapper {
+  xborder: blue 1px solid;
+  width: 600px;
+  margin: auto;
+  overflow: hidden;
+}
+
+.grid3 {
+  xwidth: 630px;
+  margin: auto;
+  margin-left: -15px;
+  margin-right: -15px;
+  font-size: 0;
+}
+
+.item3 {
+  width: 180px;
+  height: 40px;
+  box-sizing: border-box;
+  border: 3px solid black;
+  display: inline-block;
+  font-size: 16px;
+  margin: 8px 15px;
+    background-color: #F5C3CB;
+}
+
+.item2:hover {
+  background-color: red;
+}
+
+.item3:hover {
+  background-color: red;
+}
+
+.links {
+  width: 600px;
+  margin: auto;
+  padding: 0;
+  list-style: none;
+}
+
+.links > li {
+  border-bottom: 1px dotted
+}
+
+.links > li:last-child {
+  border-bottom: none;
+}
+
+footer {
+  background-color: violet;
+  text-align: center;
+}
+    </style>
+</head>
+
+<body>
+  <header>
+    <div class="header">
+    hello world 请调整浏览器窗口大小查看效果hello world 请调整浏览器窗口大小查看效果hello world 请调整浏览器窗口大小查看效果hello world 请调整浏览器窗口大小查看效果hello world 请调整浏览器窗口大小查看效果hello world 请调整浏览器窗口大小查看效果
+    </div>
+  </header>
+  <main>
+    页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px
+  </main>
+  <section class="grid2">
+    <div class="item2">宽180高40（包含边框）</div>
+    <div class="item2">产品</div>
+    <div class="item2">产品</div>
+    <div class="item2">水平间隙30px</div>
+    <div class="item2">产品</div>
+    <div class="item2">产品</div>
+    <div class="item2">垂直间隙15px</div>
+    <div class="item2">产品</div>
+    <div class="item2">产品</div>
+    <div class="item2">边框宽度3px</div>
+    <div class="item2">产品</div>
+    <div class="item2">产品</div>
+  </section>
+  
+ <div class="grid3-wrapper">
+    <section class="grid3">
+    <div class="item3">宽180高40（包含边框）</div>
+    <div class="item3">产品</div>
+    <div class="item3">产品</div>
+    <div class="item3">水平间隙30px</div>
+    <div class="item3">产品</div>
+    <div class="item3">产品</div>
+    <div class="item3">垂直间隙15px</div>
+    <div class="item3">产品</div>
+    <div class="item3">产品</div>
+    <div class="item3">边框宽度3px</div>
+    <div class="item3">产品</div>
+    <div class="item3">产品</div>
+  </section>
+ </div>
+  
+  <ul class="links">
+    <li>link</li>
+    <li>link</li>
+    <li>link</li>
+    <li>link</li>
+    <li>link</li>
+  </ul>
+  <footer>
+    ©版权所有
+    <br>
+本页所有布局均使用块元素
+  </footer>
+
+</body>
+</html>
