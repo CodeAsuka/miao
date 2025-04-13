@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    * {
+      background-color: rgba(0,0,0,0.08);
+      box-shadow: inset 0 0 1px red;
+    }
+
+    div {
+      display: grid;
+      width: 1226px;
+      height: 614px;
+      margin: auto;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      gap: 14px;
+      > span {
+      grid-row-end: span 2;
+      display: grid;
+      justify-items: center;
+      align-items: center;
+      font-size: 48px;
+      &:first-child {
+        grid-row-end: span 4;
+      }
+      &:nth-last-child(-n+2) {
+        grid-row-end: span 1;
+      }
+     }
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <span>1</span>
+    <span>2</span>
+    <span>3</span>
+    <span>4</span>
+    <span>5</span>
+    <span>6</span>
+    <span>7</span>
+    <span>8</span>
+    <span>9</span>
+    <span>10</span>
+  </div>
+</body>
+</html>

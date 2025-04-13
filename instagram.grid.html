@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    * {
+      background-color: rgba(0,0,0,0.08);
+      box-shadow: inset 0 0 1px red;
+    }
+
+    div {
+      display: grid;
+      width: 200px;
+      height: 200px;
+   
+    }
+
+    span {
+      aspect-ratio: 1/ 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 36px;
+    }
+
+    span:nth-child(12n + 1),
+    span:nth-child(12n + 8) {
+      grid-row-end: span 2;
+      grid-column-end: span 2;
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-cols-3">
+    <span>1</span>
+    <span>2</span>
+    <span>3</span>
+    <span>4</span>
+    <span>5</span>
+    <span>6</span>
+    <span>7</span>
+    <span>8</span>
+    <span>9</span>
+    <span>10</span>
+    <span>11</span>
+    <span>12</span>
+    <span>13</span>
+    <span>14</span>
+    <span>15</span>
+    <span>16</span>
+    <span>17</span>
+    <span>18</span>
+    <span>19</span>
+    <span>20</span>
+    <span>21</span>
+    <span>22</span>
+    <span>23</span>
+    <span>24</span>
+    <span>25</span>
+    <span>26</span>
+    <span>27</span>
+    <span>28</span>
+    <span>29</span>
+    <span>30</span>
+    <span>31</span>
+    <span>32</span>
+    <span>33</span>
+    <span>34</span>
+    <span>35</span>
+    <span>36</span>
+    <span>37</span>
+    <span>38</span>
+    <span>39</span>
+    <span>40</span>
+    <span>41</span>
+    <span>42</span>
+    <span>43</span>
+    <span>44</span>
+    <span>45</span>
+    <span>46</span>
+    <span>47</span>
+    <span>48</span>
+  </div>
+</body>
+</html>
