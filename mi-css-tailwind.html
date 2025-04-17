@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.css">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    .slider {
+    position: relative;
+  
+  > input:nth-child(1):checked ~ a:nth-of-type(1),
+  > input:nth-child(2):checked ~ a:nth-of-type(2),
+  > input:nth-child(3):checked ~ a:nth-of-type(3),
+  > input:nth-child(4):checked ~ a:nth-of-type(4),
+  > input:nth-child(5):checked ~ a:nth-of-type(5),
+  > input:nth-child(6):checked ~ a:nth-of-type(6) {
+    display: block;
+  }
+  > input:nth-child(1):checked ~ .prev label:nth-child(1),
+  > input:nth-child(2):checked ~ .prev label:nth-child(2),
+  > input:nth-child(3):checked ~ .prev label:nth-child(3),
+  > input:nth-child(4):checked ~ .prev label:nth-child(4),
+  > input:nth-child(5):checked ~ .prev label:nth-child(5),
+    > input:nth-child(6):checked ~ .prev label:nth-child(6) {
+      display: block;
+  }
+  > input:nth-child(1):checked ~ .next label:nth-child(1),
+  > input:nth-child(2):checked ~ .next label:nth-child(2),
+  > input:nth-child(3):checked ~ .next label:nth-child(3),
+  > input:nth-child(4):checked ~ .next label:nth-child(4),
+  > input:nth-child(5):checked ~ .next label:nth-child(5),
+  > input:nth-child(6):checked ~ .next label:nth-child(6) {
+      display: block;
+  }
+  > a {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    > img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .prev, .next {
+    position: absolute;
+    left: 0;
+    height: 50px;
+    width: 45px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    > label {
+      display: none;
+      position: absolute;
+    }
+  }
+  .next {
+    right: 0;
+    left: auto;
+  }
+}
+  </style>
+</head>   
+<body class="overflow-y-scroll">
+    <div class="bg-[#333] h-[40px] text-[#B0B0B0]">
+        <div class="w-[1226px] h-full mx-auto bg-[#333333] text-xs leading-[40px]">
+        <div class="float-left">
+                <a href="">小米官网</a> 
+                <span class="text-slate-800 mx-[.3em]">|</span>
+                <a href="">小米商城</a> 
+                <span class="text-slate-800 mx-[.3em]">|</span>
+                <a href="">小米澎湃os</a> 
+                <span class="text-slate-800 mx-[.3em]">|</span>
+                <a href="">小米汽车</a> 
+                <span class="text-slate-800 mx-[.3em]">|</span>
+                <a href="">云服务</a> 
+                <span class="text-slate-800 mx-[.3em]">|</span>
+                <a href="">IoT</a> 
+                <span class="text-slate-800 mx-[.3em]">|</span>
+                <a href="">有品</a> 
+                <span class="text-slate-800 mx-[.3em]">|</span>
+                <a href="">小爱开放平台</a> 
+                <span class="text-slate-800 mx-[.3em]">|</span>
+                <a href="">资质证照</a> 
+                <span class="text-slate-800 mx-[.3em]">|</span>
+                <a href="">协议规则</a>
+                <span class="text-slate-800 mx-[.3em]">|</span>
+                <a href="">下载app</a> 
+                <span class="text-slate-800 mx-[.3em]">|</span>
+                <a href="">Select location
+            </div>
+            <div class="SHOPPING-CART group w-[120px] float-right text-center relative">
+                <i class="fa fa-shopping-cart fa-lg"></i> 购物车 (0)
+                <div class="DROP-DOWN w-[315px] shadow-lg transition-all group-hover:h-[100px] overflow-hidden h-0 absolute right-0 top-full bg-white z-[20]">购物车里面还没有商品，赶紧选购吧！</div>
+            </div>
+            <div class="float-right mr-4">
+                <a href="">登陆</a>
+                |
+                <a href="">注册</a>
+                |
+                <a href="">消息通知</a>
+            </div>
+            
+        </div>
+    </div>
+    <div class="relative">
+        <div class="h-[100px] w-[1226px] mx-auto flex items-center">
+            <img class="w-[50px] h-[50px]" src="https://s01.mifile.cn/favicon.ico" alt="">
+            
+            <ul class="group flex self-stretch ml-[185px]">
+                <li class="group/item flex items-center px-2">
+                    Xiaomi手机
+                    <div class="group-hover:h-[230px] group-hover/item:z-30 bg-white transition-all overflow-hidden h-0  w-full absolute left-0 top-full">
+                        <ul class="w-[1226px] mx-auto h-[230px] flex">
+                            <li class="grow flex"><img class="items-center w-[160px] h-[110px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/d0acdc0fc97f894fc1c698522e8e1cc9.png?thumb=1&w=320&h=220&f=webp&q=90" alt=""></li>
+                            <li class="grow flex"><img class="items-center w-[160px] h-[110px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c5728efe6a6ca16912c1ed60487a7447.png?thumb=1&w=320&h=220&f=webp&q=90" alt=""></li>
+                            <li class="grow flex"><img class="items-center w-[160px] h-[110px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b3fd13de87bcd8755fdbb804bfba467a.png?thumb=1&w=320&h=220&f=webp&q=90" alt=""></li>
+                            <li class="grow flex"><img class="items-center w-[160px] h-[110px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b17e107bd68b683c92e2245715bb7e54.png?thumb=1&w=320&h=220&f=webp&q=90" alt=""></li>
+                            <li class="grow flex"><img class="items-center w-[160px] h-[110px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/9a8fec02d8edf2bc5d1ed975823465c6.png?thumb=1&w=320&h=220&f=webp&q=90" alt=""></li>
+                            <li class="grow flex"><img class="items-center w-[160px] h-[110px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/851b0039398ebce5909ef54360b03d1a.png?thumb=1&w=320&h=220&f=webp&q=90" alt=""></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="group/item flex items-center px-2">
+                    Redmi手机
+                    <div class="group-hover:h-[230px] group-hover/item:z-30 bg-white transition-all overflow-hidden h-0  w-full absolute left-0 top-full">
+                        <ul class="w-[1226px] mx-auto h-[230px]">
+                            <li>bbb</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="group/item flex items-center px-2">
+                    电视
+                    <div class="group-hover:h-[230px] group-hover/item:z-30 bg-white transition-all overflow-hidden h-0  w-full absolute left-0 top-full">
+                        <ul class="w-[1226px] mx-auto h-[230px]">
+                            <li>ccc</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="group/item flex items-center px-2">
+                    笔记本
+                    <div class="group-hover:h-[230px] group-hover/item:z-30 bg-white transition-all overflow-hidden h-0  w-full absolute left-0 top-full">
+                        <ul class="w-[1226px] mx-auto h-[230px]">
+                            <li>ddd</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="group/item flex items-center px-2">
+                    平板
+                    <div class="group-hover:h-[230px] group-hover/item:z-30 bg-white transition-all overflow-hidden h-0  w-full absolute left-0 top-full">
+                        <ul class="w-[1226px] mx-auto h-[230px]">
+                            <li>eee</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="group/item flex items-center px-2">
+                    家电
+                    <div class="group-hover:h-[230px] group-hover/item:z-30 bg-white transition-all overflow-hidden h-0  w-full absolute left-0 top-full">
+                        <ul class="w-[1226px] mx-auto h-[230px]">
+                            <li>eee</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="group/item flex items-center px-2">
+                    路由器
+                    <div class="group-hover:h-[230px] group-hover/item:z-30 bg-white transition-all overflow-hidden h-0  w-full absolute left-0 top-full">
+                        <ul class="w-[1226px] mx-auto h-[230px]">
+                            <li>fff</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="group/item flex items-center px-2">
+                    服务中心
+                </li>
+                <li class="group/item flex items-center px-2">
+                    社区 
+                </li>
+            </ul>
+
+            <form class="group flex h-[50px] ml-auto relative">
+                <input class="w-[250px] peer outline-none px-2 border border-red-0 group-hover:border-red-500" type="text">
+                <button class="w-[50px] group-hover:border-red-500"><i class="fa fa-search"></i></button>
+                <ul class="absolute hidden peer-focus:block left-0 top-full w-[250px] z-[10] bg-white">
+                    <li>手机换新</li>
+                    <li>空调</li>
+                    <li>Redmi K70 Pro</li>
+                    <li>笔记本电脑</li>
+                    <li>风扇</li>
+                    <li>手表</li>
+                    <li>显示器</li>
+                    <li>小米手环8</li>
+                </ul>
+            <form/>
+        </div>
+    </div>
+    <div class="CAROUSEL-SECTION relative w-[1226px] mx-auto h-[460px] overflow-hidden">
+        
+        <ul class="MENU-ON-THE-IMAGE grid grid-rows-10 h-full w-[235px] top-0 py-5 absolute bg-[#9C9A9B]">
+            <li class="group px-7 items-center hover:bg-[#ff6700] text-white after:content-['>'] after:absolute after:right-0">
+                手机
+                <ul class="hidden group-hover:flex absolute flex-col flex-wrap top-0 left-full w-max h-full *:h-1/6 *:w-[270px] bg-white text-black text-sm">
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/182d59037498cad87202c36e1a8ea23c.png?thumb=1&w=80&h=80&f=webp&q=90" alt=""> Xiaomi 数字旗舰</li> 
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/bb9e4a367f854221b60bb7b3b05e0173.png?thumb=1&w=80&h=80&f=webp&q=90" alt=""> Xiaomi Mix系列</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/8baabd4fc4255a2cf81636335b4cf0c1.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">Xiaomi Civi系列</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/55b0ecc7cc8ab3714f311cc5df3bd0ae.png?thumb=1&w=80&h=80&f=webp&q=90" alt=""> Redmi K系列</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e12d8f226458729f4c92063b09d4f0f2.png?thumb=1&w=80&h=80&f=webp&q=90" alt=""> Redmi Turbo系列</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/a57303e8ac0d52a8b714a078cc35bfa1.png?thumb=1&w=80&h=80&f=webp&q=90" alt=""> Redmi Note系列</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c15a3d1b4e8bf2af17e6b5ad5559cfcb.png?thumb=1&w=80&h=80&f=webp&q=90" alt=""> Redmi 数字系列</li>
+                </ul>
+            </li>
+            <li class="group px-7 items-center hover:bg-[#ff6700] text-white after:content-['>'] after:absolute after:right-0">
+                电视
+                <ul class="hidden group-hover:flex absolute flex-col flex-wrap top-0 left-full w-max h-full *:h-1/6 *:w-[270px] bg-white text-black text-sm">
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/026fb3c3542d5ea80824efb94e52f895.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">旗舰系列-S Pro Mini LED</li> 
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/fb29bd1fdc24747f29a1391842e7249b.png?thumb=1&w=80&h=80&f=webp&q=90" alt=""> 旗舰系列-S Mini LED</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/30508961963af8937ead2013b77b97fe.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">巨幕影院-Redmi MAX</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/3d02613c3057fa79fd3aa46624eaa362.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">游戏高刷-Redmi X 2025 </li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/7255d4c770a75efc5d96dd92dfc6ec49.png?thumb=1&w=80&h=80&f=webp&q=90" alt=""> 性价比爆款-Redmi A Pro</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/1d5d10c3aa7cd62086fc39716f687449.png?thumb=1&w=80&h=80&f=webp&q=90" alt=""> 性价比爆款-Redmi A 2025</li>
+                </ul>
+            </li>
+            <li class="group px-7 items-center hover:bg-[#ff6700] text-white after:content-['>'] after:absolute after:right-0">
+                家电
+                <ul class="hidden group-hover:flex absolute flex-col flex-wrap top-0 left-full w-max h-full *:h-1/6 *:w-[270px] bg-white text-black text-sm">
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/630b9e523bb2e1387ce6c7be1edaca18.png?thumb=1&w=80&h=80" alt="">壁挂空调</li> 
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/20e478a62b19d36ff05e92763fe7396f.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">立式空调</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/afcf69ccc6c889edb4ceeca205799d23.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">中央空调Pro</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e6fe32cdaf14e104013384d89100f9c6.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">冰箱</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0dacd2b7d77e0b9527f3d5f8b646b972.jpeg?thumb=1&w=2452&h=920&f=webp&q=90" alt="">滚筒洗衣机</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/fd480335781b6c6d6c0ba586c5bb209c.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">波轮洗衣机</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/ce2cb16bdc44b5336c90e2d788d6c8e2.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">除湿机</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/00d73a63bf8fb50cb0cf071d903333b2.jpg?thumb=1&w=80&h=80&f=webp&q=90" alt="">洗地机</li> 
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/6aa1871d84aaae98cd676f5e2cf5c2f2.jpg?thumb=1&w=80&h=80" alt="">电暖器</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/12f4b26ced3716d07bfcc6beba751188.jpg?thumb=1&w=80&h=80" alt="">净水器</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/f7dcbb8c268574041ce0b4b98e591cf1.jpg?thumb=1&w=80&h=80&f=webp&q=90" alt="">微蒸烤</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/bf07e32a082098cc81a433fe360811c8.gif?thumb=1&w=80&h=80&f=webp&q=90" alt="">烟灶</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/91ccbb3270bcfd72a3c3ae98f15aed9d.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">洗碗机</li> 
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/d068f740ef433d49ba1304b0c70e39e3.jpg?thumb=1&w=80&h=80&f=webp&q=90" alt="">扫地机器人</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/26deda5474eb7eb7e5b34547c58b9893.jpg?thumb=1&w=80&h=80" alt="">吸尘器</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/3630f1d92e44f1518b982020986ee953.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">加湿器</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/e997ed31cd5199ec0a24eeb48a37b1e7.jpg?thumb=1&w=80&h=80" alt="">空气净化器</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/390e15818dd103b2f96f4ac742d47379.jpg?thumb=1&w=80&h=80" alt="">电饭煲</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/d93e6a98403262a506c9e9b22293cdae.jpg?thumb=1&w=80&h=80" alt="">电磁炉</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/39c8ccbebd08687bc6780373b7ef2a95.jpg?thumb=1&w=80&h=80" alt="">水壶</li> 
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/3a3e4238b70ef8db89ae77f8a3762fc8.png?thumb=1&w=80&h=80" alt="">落地风扇</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/c12fd1da9fed662842d6f5c57d7737c9.png?thumb=1&w=80&h=80" alt="">投影仪</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/c0a6b523433a492dbf32035b2983d98e.jpg?thumb=1&w=80&h=80" alt="">灯具</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/4b611c8e68c0b9424e66857646c4b264.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">除螨仪</li>
+                </ul>
+            </li>
+            <li class="group px-7 items-center hover:bg-[#ff6700] text-white after:content-['>'] after:absolute after:right-0">
+                笔记本 平板 显示器
+                <ul class="hidden group-hover:flex absolute flex-col flex-wrap top-0 left-full w-max h-full *:h-1/6 *:w-[270px] bg-white text-black text-sm">
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/63710378af101deacce8b4986fdef250.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">Xiaomi Pad 7 Pro</li> 
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/194b27f9a5698e7f2d651f0c0635453a.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">Xiaomi Pad 7</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/455295a749de8a10288257f43cdb98ce.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">REDMI Book Pro16</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/455295a749de8a10288257f43cdb98ce.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">REDMI Book Pro14</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/627ca9afd92d4efa4e29dce497c7bf8b.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">Redmi 平板</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/01093ece938a05e0e6e6b64299eb89ae.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">Xiaomi 平板</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c78e72d1a4280bb907f22e60bed5f62a.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">REDMI Book 14 2025</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c78e72d1a4280bb907f22e60bed5f62a.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">REDMI Book 16 2025</li> 
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/721960abfd3ba99426d74595124c0820.jpg?thumb=1&w=80&h=80&f=webp&q=90" alt="">办公娱乐显示器</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/722dcf898f2db1e5689a6df08e87b525.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">游戏电竞显示器</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/2ac4fd34e03041586d6507444d0a24ca.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">Redmi 显示器 G34WQ</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/722dcf898f2db1e5689a6df08e87b525.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">Redmi G Pro27</li>
+                </ul>
+            </li>
+            <li class="group px-7 items-center hover:bg-[#ff6700] text-white after:content-['>'] after:absolute after:right-0">
+                出行 穿戴
+                <ul class="hidden group-hover:flex absolute flex-col flex-wrap top-0 left-full w-max h-full *:h-1/6 *:w-[270px] bg-white text-black text-sm">
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/6f3f4fad1bc8ef497b9023dffedbe338.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">REDMI Watch 5</li> 
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/5f1a142b30ae28479510eab9b048580b.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">Xiaomi Watch S4</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/20f93242663fc6d005deabc1252aca67.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">小米手环9 Pro</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/3f017abd91eaeb1df17d9e2efec5cc5c.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">Redmi 手环 3</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/dae737481038a58108f0f54e777a4eb1.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">小米手环9</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/98827e968b25c3391be7143daee2f9c6.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">小米手环9 NFC</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/879fbf4ec88f1c27835f7f895546fd27.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">Xiaomi Watch S4Sport</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b2db8cbb0eb80872b0a17b6ed28f3b04.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">小米手环8 Pro 原神定制版</li> 
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/04d43426739f027486327c3b3bf5eaaf.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">Xiaomi Watch S3</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/626b982c94f48ed1b259483adb90e4d6.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">九号平衡车 Plus</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/54d0cbba1ae104949c0ab3c0dc3fb4f3.jpg?thumb=1&w=80&h=80&f=webp&q=90" alt="">九号平衡车燃动版</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/46bbc5d5750f6af3f505c029ee6f1ba4.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">小米车载充电器快充版1A…</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/90cf14361fbe72fb8b063606d243610b.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">小米无线车充 Pro</li>
+                </ul>
+            </li>
+            <li class="group px-7 items-center hover:bg-[#ff6700] text-white after:content-['>'] after:absolute after:right-0">
+                耳机 音箱
+                <ul class="hidden group-hover:flex absolute flex-col flex-wrap top-0 left-full w-max h-full *:h-1/6 *:w-[270px] bg-white text-black text-sm">
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/f39eb03f586be89abccfc715f4133db1.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">Xiaomi Buds 5 Pro</li> 
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/4fa45caa44d39037cd57c189e6bb69f8.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">REDMI Buds 6 Pro</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/dfd8124c484dc3fcc1186d39e27c7827.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">Redmi Buds 6 青春版</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/f56084f0a9adc67bd4866876b29a38c3.jpg?thumb=1&w=80&h=80&f=webp&q=90" alt="">Redmi Buds 6</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c70bc9b94595d8a434a75e138fce7bca.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">Xiaomi buds 5</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b430c0701ca1832b8b6a962fd1adf25e.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">REDMI Buds 7S</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b98ec4b01e8a36886e5830bb78a5555f.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">Redmi Buds 6S</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b2acd6de4ca7d7997a62eb1f9fb91a23.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">Redmi Buds 6 活力版</li> 
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/373ebc31f973aeeed8896bdefacffe74.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">Xiaomi 开放式耳机</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/6d342fe78c4aca7e6458bd25ab15bdc9.jpg?thumb=1&w=80&h=80&f=webp&q=90" alt="">Redmi Buds 5 Pro</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/15d918d05a777f119f4b794503ce5c98.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">Xiaomi智能家庭屏 6</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/4086b6775c5194fff928ccd23d325acf.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">Xiaomi Sound</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/3080f7634a71b9863966ff0b10ad1a53.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">Xiomi智能家庭屏 10</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/360215a1e32317abb912d48c3e80dd20.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">小爱音箱 Pro</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/df7c5b83fa173824052ca7929dbb0c37.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">小爱音箱Play 增强版</li> 
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/daeb40550103b72449ee783eabb45b0d.jpg?thumb=1&w=80&h=80&f=webp&q=90" alt="">Xiaomi Sound Pro</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/3d5963e212402fa5ebd2e71dd10c426c.jpg?thumb=1&w=80&h=80" alt="">小米小爱音箱 Play</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/9177af7098efadcaac278e2f9c6f113a.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">小米小爱触屏音箱Pro 8</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/aa861ad93e69c69c7b2d1d21fd6946cd.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">Xiaomi 蓝牙音箱 Mini</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/007308d07c93d959c1ca8c8d62853914.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">Xiaomi智能家庭屏Pro 8</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/db89d422ef877cf7290616fef515e413.jpg?thumb=1&w=80&h=80" alt="">小米AI音箱</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/5232ef2eeeef67dee0fc7687b667b631.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">Xiaomi 胶囊耳机</li> 
+                </ul>
+            </li>
+            <li class="group px-7 items-center hover:bg-[#ff6700] text-white after:content-['>'] after:absolute after:right-0">
+                健康 儿童
+                <ul class="hidden group-hover:flex absolute flex-col flex-wrap top-0 left-full w-max h-full *:h-1/6 *:w-[270px] bg-white text-black text-sm">
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/da43c3dd6b171ee267f1fd1ec01b9208.jpg?thumb=1&w=80&h=80" alt="">洗手机</li> 
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/60d7bdf307ceaba08b3275246ad3ab53.jpg?thumb=1&w=80&h=80" alt="">剃须刀</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/96b5d738ce5926e3a6969ad68fa1521d.jpg?thumb=1&w=80&h=80&f=webp&q=90" alt="">修剪器</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/15447769c461fdc71e84a7badb83f09b.jpg?thumb=1&w=80&h=80" alt="">牙刷</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/bba7ce79f4d61939c69b7a26bf507bae.jpg?thumb=1&w=80&h=80" alt="">吹风机</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/459afd0eb2a3bc6313e7ac62bd3a52df.png?thumb=1&w=80&h=80" alt="">体重秤</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/fe6166ca2026008abb86bc67dfd8211d.jpg?thumb=1&w=80&h=80" alt="">体脂秤</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/9e04107f99edded4a64b7e92ae25641d.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">米家跑步机</li> 
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/84ca0dbb3d7b8debc2e531109d7c2b58.jpg?thumb=1&w=80&h=80&f=webp&q=90" alt="">米家动感单车</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/fb1fee7e2f2963baae34d3611a2b7e9f.jpg?thumb=1&w=80&h=80" alt="">走步机</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/d9d211ae20e700690ce9eec644ac3f31.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">益智积木</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/a0b3a592784632760a7ef25de50147a7.jpg?thumb=1&w=80&h=80" alt="">儿童手表</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/9f6a34ed8071b821ee5aa8d32a7be95d.jpg?thumb=1&w=80&h=80" alt="">儿童滑板车</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/12235daeb49fd45e709e68c7dacd3336.jpg?thumb=1&w=80&h=80" alt="">婴儿推车</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c4568ec9535a8707cea88dcd0148dda8.jpeg?thumb=1&w=80&h=80&f=webp&q=90" alt="">理发器</li>
+                </ul>
+            </li>
+            <li class="group px-7 items-center hover:bg-[#ff6700] text-white after:content-['>'] after:absolute after:right-0">
+                生活 箱包
+                <ul class="hidden group-hover:flex absolute flex-col flex-wrap top-0 left-full w-max h-full *:h-1/6 *:w-[270px] bg-white text-black text-sm">
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/9f26030d7d914b86daca51233a3ac5f9.jpg?thumb=1&w=80&h=80&f=webp&q=90" alt="">小背包</li> 
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/f628feba0f2f8253f9cc41f9984194a7.jpg?thumb=1&w=80&h=80" alt="">双肩包</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/2846c64ffd97969c639979da9bb97974.jpg?thumb=1&w=80&h=80&f=webp&q=90" alt="">胸包</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/6c5138635ef1396e35856ec942e3b6c0.jpg?thumb=1&w=80&h=80&f=webp&q=90" alt="">旅行箱</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/77aa97808ebf4965cf823fd2199433ec.jpg?thumb=1&w=80&h=80&f=webp&q=90" alt="">收纳袋</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/e899d08e36c306570d4fe3c75df90a42.jpg?thumb=1&w=80&h=80" alt="">运动鞋</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/6c6b6895044b55858102f72d87a6c39f.jpg?thumb=1&w=80&h=80&f=webp&q=90" alt="">服饰</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/d521bd58668f66c50562b8fa8949f67c.jpg?thumb=1&w=80&h=80" alt="">眼镜</li> 
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/aba45662667dceaf4ba0e5b08f44d3a7.jpg?thumb=1&w=80&h=80" alt="">床垫</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/744306b95df4d130bdfc346ff2b3c871.png?thumb=1&w=80&h=80" alt="">枕头</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/458169c8138413666feb860068ce1a56.jpg?thumb=1&w=80&h=80" alt="">螺丝刀</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/813d173eff50a83abb8abd5abde5f5a6.jpg?thumb=1&w=80&h=80" alt="">水杯</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/59d3a701ac0bbb78f1b1d0ea7ebc7505.jpg?thumb=1&w=80&h=80" alt="">驱蚊器</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/21c3ec8638dd75f5c54f1a69864a1cc9.jpg?thumb=1&w=80&h=80" alt="">毛巾/浴巾</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/c9279a17e9399958420af64e449e3214.jpg?thumb=1&w=80&h=80" alt="">笔</li>
+                </ul>
+            </li>
+            <li class="group px-7 items-center hover:bg-[#ff6700] text-white after:content-['>'] after:absolute after:right-0">
+                智能 路由器
+                <ul class="hidden group-hover:flex absolute flex-col flex-wrap top-0 left-full w-max h-full *:h-1/6 *:w-[270px] bg-white text-black text-sm">
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/435f8b56d41de210d1c4598f4f00fa50.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">MIJIA K歌麦克风</li> 
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/5ef6c2d63df78e140afab6ac3c088fac.jpg?thumb=1&w=80&h=80" alt="">打印机</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/4670a965ac5f0dd32689e06c27cea78f.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">小米路由器</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/399b717a9d27252f21e32a981403c1c0.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">Redmi路由器</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/aa7c5302bf6c8e040b084dee50fa699f.jpg?thumb=1&w=80&h=80&f=webp&q=90" alt="">智能家庭</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/21fedf7ba9019bce59cbc4856f907076.jpg?thumb=1&w=80&h=80" alt="">对讲机</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/067f4a6f0ffb264ed40734a97deae52d.jpg?thumb=1&w=80&h=80" alt="">摄像机</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/4fb7885d49255b93f7245aa53501294c.jpg?thumb=1&w=80&h=80" alt="">智能门锁</li> 
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/4fb7885d49255b93f7245aa53501294c.jpg?thumb=1&w=80&h=80" alt="">门铃/猫眼</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/286f1b9527d8df27c43ca28fcf71f062.jpg?thumb=1&w=80&h=80&f=webp&q=90" alt="">小爱音箱</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/7242436b36197a81d73b67ce6a5f26f5.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">家庭屏</li>
+                </ul>
+            </li>
+            <li class="group px-7 items-center hover:bg-[#ff6700] text-white after:content-['>'] after:absolute after:right-0">
+                电源 配件
+                <ul class="hidden group-hover:flex absolute flex-col flex-wrap top-0 left-full w-max h-full *:h-1/6 *:w-[270px] bg-white text-black text-sm">
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/458adc268050c17312da7c12328395e8.jpg?thumb=1&w=80&h=80&f=webp&q=90" alt="">插排插座</li> 
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/8c55361386a46857f962e5142baeefcf.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">移动电源</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/45dd7a2c4fc3d17d5d261ed3eed7cd15.jpg?thumb=1&w=80&h=80" alt="">数据线</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/9027b032a6afc6ba9d4d2acb962cb220.jpg?thumb=1&w=80&h=80&f=webp&q=90" alt="">穿戴配件</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/49f1917ed50c197e7b27407a10256fa3.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">平板配件</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/864bcd18999a7b0fe22365f7ea7909e0.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">充电器</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/10ec831749f1c657fc0a494feab15ed4.jpg?thumb=1&w=80&h=80" alt="">电池</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/2725e04c955dc060ac142fabbf809c1e.jpg?thumb=1&w=80&h=80" alt="">自拍杆</li> 
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/5c6e60e48edf17219724faad95963b93.jpg?thumb=1&w=80&h=80" alt="">手机壳</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/e9e248c899fd895c9267f494ea1aaebf.jpg?thumb=1&w=80&h=80" alt="">手机贴膜</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/27074367aa02371a3c3c417c41195346.png?thumb=1&w=80&h=80&f=webp&q=90" alt="">无线充电器</li>
+                    <li class="flex items-center"><img class="w-[40px] h-[40px]" src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/57d9989807dbc15c1a82bc49acc1f06f.jpg?thumb=1&w=80&h=80" alt="">其他配件</li>
+                </ul>
+            </li>
+        </ul>
+      <div class="slider  w-[991px] h-full translate-x-[235px]">
+        <input type="radio" checked name="s1" id="s1-1">
+        <input type="radio" name="s1" id="s1-2">
+        <input type="radio" name="s1" id="s1-3">
+        <input type="radio" name="s1" id="s1-4">
+        <input type="radio" name="s1" id="s1-5">
+        <input type="radio" name="s1" id="s1-6">
+         
+        <a href="#"><img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/2e389157059c44d9352b42e04407cbb7.jpg?w=2452&h=920" alt=""></a>
+        <a href="#"><img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/f611503a9bac4ef5fdce6d484b73cfff.jpg?thumb=1&w=2452&h=920&f=webp&q=90" alt=""></a>
+        <a href="#"><img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/301a9e44e422e8020bf0aa71db78f267.jpg?thumb=1&w=2452&h=920&f=webp&q=90" alt=""></a>
+        <a href="#"><img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/5bd3e78a8869067a6d21e6146ffda080.jpeg?thumb=1&w=2452&h=920&f=webp&q=90" alt=""></a>
+        <a href="#"><img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/4cd313aacd8bc21ab500fb94f6b730c4.jpeg?thumb=1&w=2452&h=920&f=webp&q=90" alt=""></a>
+        <a href="#"><img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0dacd2b7d77e0b9527f3d5f8b646b972.jpeg?thumb=1&w=2452&h=920&f=webp&q=90" alt=""></a>
+         
+        <div class="prev">
+          <label for="s1-6">prev</label>
+          <label for="s1-1">prev</label>
+          <label for="s1-2">prev</label>
+          <label for="s1-3">prev</label>
+          <label for="s1-4">prev</label>
+          <label for="s1-5">prev</label>
+        </div>
+        <div class="next">
+          <label for="s1-2">next</label>
+          <label for="s1-3">next</label>
+          <label for="s1-4">next</label>
+          <label for="s1-5">next</label>
+          <label for="s1-6">next</label>
+          <label for="s1-1">next</label>
+        </div>
+        <div class="indicator"></div>
+      </div>
+    </div>
+
+    <div class="flex w-[1226px] mx-auto h-[170px] gap-[15px] mt-[15px]">
+        <div class="w-[235px]"></div>
+        <div class="grow"></div>
+        <div class="grow"></div>
+        <div class="grow"></div>
+    </div>
+
+    <div class="RIGHT-SIDE-PAGE-NAVIGATION-TOOL fixed max-xl:w-6 max-xl:ml-[613px] max-xl:left-1/2 xl:right-0 bottom-[65px] flex flex-col bg-slate-500"> 
+        <i class="fa fa-mobile fa-lg"></i><i class="fa fa-user-o"></i><i class="fa fa-wrench"></i><i class="fa fa-volume-control-phone"></i><i class="fa fa-shopping-cart"></i>
+    </div>
+</body>
+</html>
