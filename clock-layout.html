@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    div {
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+
+span {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  margin: auto;
+  inset: 0;
+  text-align: center;
+  border-radius: 99999px;
+  transform: rotate(var(--rot)) translatex(50px) rotate(calc(0deg - var(--rot)));
+}
+
+span:nth-child(1) {
+  --rot: -60deg;
+}
+span:nth-child(2) {
+  --rot: -30deg;
+}
+span:nth-child(3) {
+  --rot: 0deg;
+}
+span:nth-child(4) {
+  --rot: 30deg;
+}
+span:nth-child(5) {
+  --rot: 60deg;
+}
+span:nth-child(6) {
+  --rot: 90deg;
+}
+span:nth-child(7) {
+  --rot: 120deg;
+}
+span:nth-child(8) {
+  --rot: 150deg;
+}
+span:nth-child(9) {
+  --rot: 180deg;
+}
+span:nth-child(10) {
+  --rot: 210deg;
+}
+span:nth-child(11) {
+  --rot: 240deg;
+}
+span:nth-child(12) {
+  --rot: 270deg;
+}
+
+  </style>
+</head>
+<body>
+  <div>
+    <span>1</span>
+    <span>2</span>
+    <span>3</span>
+    <span>4</span>
+    <span>5</span>
+    <span>6</span>
+    <span>7</span>
+    <span>8</span>
+    <span>9</span>
+    <span>10</span>
+    <span>11</span>
+    <span>12</span>
+  </div>
+</body>
+</html>
