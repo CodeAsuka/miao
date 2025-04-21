@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <style>
+    .blog {
+  width: 65px;
+  height: 45px;
+  display: table-cell;
+  vertical-align: bottom;
+  transition: 2s;
+}
+.blog:hover {
+  font-size: 200%
+}
+
+.blog2 {
+  width: 65px;
+  height: 45px;
+  display: flex;
+  align-items: end;
+}
+
+.blog3 {
+  width: 65px;
+  height: 45px;
+  display: grid;
+  align-items: end;
+}
+
+
+
+.out label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+input.ios {
+  display: none;
+}
+.inner {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  background-color: white;
+  transition: .5s;
+}
+.out {
+  position: relative;
+  width: 200px;
+  height: 100px;
+  border-radius: 9999px;
+  border: 3px solid #cbc7ca;
+  box-shadow: inset 0 0 0 0px #cbc7ca;
+  background-color: #cbc7ca;
+  transition-delay: .3s;
+}
+input:checked + .out {
+  box-shadow: inset 0 0 0 50px #30f34d;
+  border: 3px solid #30f34d;
+}
+input:checked + .out .inner {
+  left: calc(100% - 100px);
+}
+
+
+
+
+
+ul {
+  margin: 20px;
+  padding: 0;
+  width: 170px;
+  list-style: none;
+  border: 2px solid yellow;
+  overflow: hidden;
+  padding-bottom: 5px;
+  >li {
+    width: 50px;
+    height: 50px;
+    border: 5px solid;
+    float: left;
+    margin-right: -5px;
+    margin-bottom: -5px;
+    position: relative;
+    &:hover {
+      border: 5px solid red;
+      z-index: 8;
+    }
+  }
+}
+
+table {
+  clear: both;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+tr,col {
+   border: 5px solid;
+}
+
+td {
+  width: 50px;
+  height: 50px;
+}
+
+td:hover {
+  border: 5px solid red;
+}
+  </style>
+</head>
+<body>
+  <span class="blog">订阅</span>
+  <span class="blog2">订阅</span>
+  <span class="blog3">订阅</span>
+  
+  <input type="checkbox" class="ios" id="ios">
+  <div class="out">
+    <label for="ios"></label>
+    <div class="inner"></div>
+  </div>
+  <ul>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+  <table>
+    <col>
+    <col>
+    <col>
+    <tr>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+    </tr>
+  </table>
+</body>
+</html>
