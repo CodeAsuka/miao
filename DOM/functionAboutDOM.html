@@ -1,0 +1,111 @@
+<script>
+  //画表格
+  function buildTable(objs) { //objs这个arg是一个填了若干个对象的数组
+    var table = document.createElement('table')
+    var keys = Object.keys(objs[0])
+    let tr = document.createElement('tr')
+    for(var key of keys) {
+      var th = document.createElement('th')
+      th.appendChild(document.createTextNode(key))
+      tr.appendChild(th)
+    }
+    table.appendChild(tr)
+    for(var obj of objs) {
+      let tr = document.createElement('tr')
+      for(var key of keys) {
+        let td = document.createElement('td')
+        td.appendChild(document.createTextNode(obj[key]))
+        if(typeof val === 'number')
+          td.style.textAlign = 'right'
+        tr.appendChild(td)
+      }
+      table.appendChild(tr)
+    }
+    return table
+  }
+
+  // 通过标签名捕获元素（遍历写法）
+  function getElementsByTagName(tagName) {
+    tagName = tagName.toUpperCase()
+    var result = []
+    traverse(document.documentElement, ele => {
+      if(ele.tagName == tagName)
+        result.push(ele)
+    })
+    return result
+  }
+  function traverse(node, action) {
+    if(node.nodeType == document.ELEMENT_NODE) {
+      if(action(node) == false)
+        return false
+      for(var child of node.children) {
+        if(traverse(child, action) == false)
+          return false
+      }
+    }
+  }
+
+  // 通过标签名捕获元素(递归写法)
+  function getElementsByTagName2(node, tagName, result = []) {
+    // tagName = tagName.toUpperCase() //children里面的tagname是大写
+    for(var child of node.children) {
+      if(child.tagName == tagName)
+        result.push(child)
+      getElementsByTagName2(child, tagName, result)
+    }
+    return result
+  }
+
+  //通过id来捕获元素（遍历写法）
+  function getElementById(id) {
+    var result = null
+    traverse(document.documentElement, ele => {
+      if(ele.id == id) {
+        result = ele
+        return false
+      }
+    })
+    return result
+  }
+
+  //通过id来捕获元素（遍递归写法）
+  function getElementById2(id, node = document.documentElement) {
+    if(node.id == id)
+      return node
+    else {
+      for(var child of node.children) {
+        var result = getElementById2(id, child)
+        if(result)
+          return result
+      }
+    }
+    return null
+  }
+
+  // innerHTML
+  function getInnerHTML(node) {
+    var result = ''
+    for(var child of node.childNodes) {
+      if(child.nodeType == document.ELEMENT_NODE) {
+        result += '<' + child.tagName + '>' + getInnerHTML(child) + '</' + child.tagName + '>'
+      } else if(child.nodeType == document.TEXT_NODE) {
+        result += child.nodeValue
+      }
+    }
+    return result
+  }
+
+  //outerHTML
+  function getOuterHTML(node) {
+    if(node.nodeType == document.TEXT_NODE) {
+      return node.nodeValue
+    }else if(node.nodeType == document.ELEMENT_NODE) {
+      var result = '<' + node.tagName + '>'
+      for(var child of node.childNodes) {
+        result += getOuterHTML(child)
+      }
+      result += '</' + node.tagName + '>'
+      return result
+    }
+  }
+</script>

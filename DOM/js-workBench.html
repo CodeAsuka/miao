@@ -1,0 +1,29 @@
+<textarea name="" id="codeInput" cols="30" rows="10">
+  var a = 2
+  var b = 3
+  console.log(a, b)
+  a + b
+</textarea>
+<button id="button">Run</button>
+<pre id="output"></pre>
+<style>
+  html {
+    background-color: black;
+    color: white;
+  }
+</style>
+<script>
+  button.addEventListener('click', e => {
+    output.textContent = ''
+    var code = codeInput.value
+    var console = {
+      log: function(...args) {
+        var text = args.join(' ')
+        output.textContent += '  ' + new Date().toISOString() + ' ' + text + '\n'
+      }
+    }
+    var result = eval(code) // eval只能得到代码的最后一句求值结果
+                            //考虑一下document.body.innerHTML = ''的情况,需要用一个sandbox去做隔离，现在仅仅靠几行代码是不大可能写出一个沙箱的
+    output.textContent += '<·' + new Date().toISOString() + ' ' + result + '\n'
+  })
+</script>

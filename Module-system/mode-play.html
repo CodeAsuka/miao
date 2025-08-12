@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script type="module">
+    import two,{PI as pi, add as plus, sub} from './Math.js' //默认导出只能有一个，具名导出要放花括号里
+    import PriorityQueue, {heapSort} from './PriorityQueue.js'
+    import confetti from "https://esm.sh/canvas-confetti@1.6.0"
+    import tinyqueue from "https://esm.sh/tinyqueue"
+    window.tinyqueue = tinyqueue
+    console.log(plus(1,sub(2, 8)) + pi)
+    confetti()
+    window.confetti = confetti
+  </script>
+</body>
+</html>

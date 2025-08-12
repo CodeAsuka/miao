@@ -1,0 +1,18 @@
+<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquid nisi aperiam molestiae eos odio debitis! Placeat explicabo laborum rem nemo non unde cum suscipit numquam. Ullam harum enim nemo similique?</p>
+<script>
+  var worker = new Worker('./squareWorker.js')
+
+  worker.addEventListener('message', e => {
+    console.log(e.data)
+  })
+  // for(var i = 0 ; i < 30 ; i++) {
+  //   sleep(1000)
+  //   console.log(i)
+  // }
+  function sleep(time) {
+    var start = Date.now()
+    while(Date.now() - start < time) {
+       
+    }
+  }
+</script>

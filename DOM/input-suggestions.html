@@ -1,0 +1,35 @@
+<input type="text">
+<div id="suggestions" style="cursor: pointer"></div>
+
+<script>
+  var input = document.querySelector('input')
+  var suggest = document.querySelector('#suggestions')
+  var displayTime = 0
+  input.addEventListener('input', e => {
+    var text = input.value.trim()
+    var inputTime = Date.now()
+    getSuggestion(text, suggestions => { // 函数声明中的result就是这里的suggestiongs
+      if(inputTime > displayTime) {
+        displayTime = inputTime. // 确保输入联想显示的是做后一次输入的联想，如果网速够快debounce可以解决问题，但是现在的写法确保万无一失
+        suggest.textContent = ''
+        for(var s of suggestions) {
+          var sdiv = document.createElement('div')
+          sdiv.textContent = s
+          suggest.append(sdiv)
+        }
+      }
+    })
+  })
+
+  function getSuggestion(text,f) {
+    var result = []
+    if(text == '')
+      return result
+    for(var i = 0 ; i < 10 ; i++) {
+      result.push(text + i)
+    }
+    setTimeout(() => {
+      f(result)
+    },50 + Math.random() * 400)
+  }
+</script>

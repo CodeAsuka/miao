@@ -1,0 +1,66 @@
+<p>Debounce</p>
+<textarea name="" id=""></textarea>
+<p id="debounce101"></p>
+<br>
+<br>
+<p>Mouse Coords by throttle:</p>
+<p id="trottle101"></p>
+<script>//书本上第一次实现debounce的写法(有我自己的改动)
+  var stopAlert = document.querySelector('#debounce101')
+  var text = document.querySelector('textarea')
+  var timeout
+  text.addEventListener('keydown', e => {
+    stopAlert.textContent = 'typing'
+    clearTimeout(timeout)
+    timeout = setTimeout(() =>{
+      stopAlert.textContent = 'You stopped keydown'
+    }, 1000)
+  })
+</script>
+<script>//书本上第一次实现throttle(有我自己的改动)
+  function displayCoords(e) {
+    var coord = document.querySelector('#trottle101')
+    coord.textContent = 'Mouse at' + e.pageX + ',' + e.pageY
+  }
+  var scheduled = false, lastEvent
+  //lastEvent的作用在于在250ms之内触发了第二次事件，那么你当然想读取到第二次事件的坐标，但是在250ms来临之前你的scheduled一直为true的状态，所以就不会运行代码28-34。
+  //那么等250ms到了以后，接受的e、显示的坐标就是250ms到之前第一次触发事件的鼠标的位置。
+  //但如果我们设置一个lastEvent = e，那么不管代码28-34会不会运行，250ms到的时候displayCoords()都能读取到最新的事件坐标。
+  //这是因为lastEvent在代码28-34之外，不管代码28-34运行不运行都会更新
+  addEventListener('mousemove', e => {
+    lastEvent = e
+    if(!scheduled) {
+      scheduled = true
+      setTimeout(function() {
+        scheduled = false
+        displayCoords(lastEvent)
+      },250)
+    }
+  })
+</script>
+
+<script> //防抖和节流的封装
+  function debounce(f, time) {
+    var id
+    return function(...args) {
+      clearTimeout(id)
+      id = setTimeout(() => {
+        f(...args)
+      }, time)
+    }
+  }
+
+  function throttle(f, time) {
+    var scheduled = false, lastArgs = []
+    return function(...args) {
+      lastArgs = args
+      if(!scheduled) {
+        scheduled = true
+        setTimeout(() => {
+          scheduled = false
+          f(...lastArgs)
+        },time)
+      }
+    }
+  }
+</script>

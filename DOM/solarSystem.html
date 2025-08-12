@@ -1,0 +1,63 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #sun {
+      width: 50px;
+      height: 50px;
+      background-color: #FF4500;
+      border-radius: 50%;
+      position: fixed;
+    }
+    #earth {
+      width: 30px;
+      height: 30px;
+      background-color: blue;
+      border-radius: 50%;
+      position: fixed;
+    }
+    #moon {
+      width: 10px;
+      height: 10px;
+      background-color: #D3D7DE;
+      border-radius: 50%;
+      position: fixed;
+    }
+  </style>
+ </head>
+ <body>
+  <div id="sun"></div>
+  <div id="earth"></div>
+  <div id="moon"></div>
+  <script>
+    var sun = document.querySelector('#sun')
+    var earth = document.querySelector('#earth')
+    var moon  = document.querySelector('#moon') // 其实不用，因为有这个id就代表有这个变量，除非和别的变量起冲突，现在这么写·1只是为了未来的你看到这段代码不会产生不必要的疑惑
+
+    requestAnimationFrame(function ani(time) {
+      var angle1 = time * 0.001
+      var sunX = Math.sin(angle1) * 230 - 25 + window.innerWidth / 2
+      var sunY = Math.cos(angle1) * 230 - 25 + window.innerHeight / 2 
+      sun.style.left = sunX + 'px'
+      sun.style.top = sunY + 'px'
+
+      var angle2 = time * 0.002
+      var earthX = Math.sin(angle2) * 180 - 15 + sunX + 25
+      var earthY = Math.cos(angle2) * 180 - 15 + sunY + 25
+      earth.style.left = earthX + 'px'
+      earth.style.top = earthY + 'px'
+
+      var angle3 = time * 0.005
+      var moonX = Math.sin(angle3) * 50 - 5 + earthX + 15
+      var moonY = Math.cos(angle3) * 50 - 5 + earthY + 15
+      moon.style.left = moonX + 'px'
+      moon.style.top = moonY + 'px'
+      
+      requestAnimationFrame(ani)
+    })
+  </script>
+ </body>
+ </html>

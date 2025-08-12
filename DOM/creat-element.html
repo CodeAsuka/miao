@@ -1,0 +1,22 @@
+<script> // 创建DOM结构函数,format of attrs{id: 8, class:'Asuka', alt: 'Maminanami'}
+  function elt(tagName, attrs = {}, ...childs) {
+    var node = document.createElement(tagName)
+    for(var key in attrs) {
+      var val = attrs[key]
+      node.setAttribute(key, val)
+    }
+    for(var i = 0 ; i < childs.length ; i++) {
+      var child = childs[i]
+      if(typeof child == 'string') {
+        node.appendChild(document.createTextNode(child))
+      } else {
+        node.appendChild(child)
+      }
+    }
+    return node
+  }
+
+  // 用法 :
+  // elt('div', elt('span', 'hello world'))
+  // 这样的嵌套用法其实就类似于Math.max(1,2,Math.max(3,4))
+</script>

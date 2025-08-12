@@ -1,0 +1,16 @@
+<p style="text-align: center;">
+  <img src="/Users/yanzihang/Desktop/frontend/DOM/IMG_2939.jpeg" style="position: relative;">
+</p>
+<script>
+  var cat = document.querySelector('img')
+  var angle = 0, lastTime = null
+  function animate(time) {
+    if(lastTime!= null)
+      angle += (time - lastTime) * 0.001
+    cat.style.top = (Math.sin(angle) * 200) + 'px' // 把Math.sin(angle)和(Math.cos(angle)换成Date.now()可以让所有人打开网页的时候图片的位置是一样的。
+    cat.style.left = (Math.cos(angle) * 200) + 'px' // 因为是根据当前时间计算的图片的位置
+    lastTime = time
+    requestAnimationFrame(animate)
+  }
+  requestAnimationFrame(animate)
+</script>

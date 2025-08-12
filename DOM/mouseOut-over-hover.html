@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    div {
+      border: 2px solid;
+      padding: 10px;
+    }
+    p {
+      border: 3px solid red;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae saepe quibusdam, enim autem fugiat optio ad consequuntur similique. Recusandae soluta quo quasi numquam ea, nihil aliquid eligendi eaque corporis eos.</p>
+  </div>
+  <script>
+    var div = document.querySelector('div')
+    div.addEventListener('mouseenter', e => {
+      div.style.backgroundColor = 'violet'
+    })
+    div.addEventListener('mouseleave', e => {
+      div.style.backgroundColor = ''
+    })
+  </script>
+</body>
+</html>

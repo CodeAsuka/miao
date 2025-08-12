@@ -1,0 +1,42 @@
+<!--禁用QWX的键盘（包括粘贴、拖拽、控制台定义value属性，输入法禁用不掉）
+但其实不管前端怎么去限制，后端的服务器层面不去做限制不去做验证依旧是无法确保万无一失的。
+毕竟不管前端发生了什么，都绕不开服务器层面的提交-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <textarea name="" id="ck" cols="30" rows="10"></textarea>
+  <script>
+    var ck = document.querySelector('#ck')
+    ck.addEventListener('keypress', e => {
+      if(e.key == 'W' || e.key == 'Q' || e.key == 'X')
+        e.preventDefault()
+    })
+    ck.addEventListener('paste', e => {
+      e.preventDefault()
+      var pasteData = e.clipboardData.getData('text/plain')
+      pasteData = pasteData.replace(/[WQX]/g, '*')
+      var from = ck.selectionStart
+      var to = ck.selectionEnd
+      ck.value = ck.value.slice(0,from) + pasteData + ck.value.slice(to)
+      ck.selectionStart = ck.selectionEnd = from + pasteData.length
+    })
+    ck.addEventListener('drop', e => {
+      e.preventDefault()
+    })
+    var valueDescriptor = Object.getOwnPropertyDescriptor(ck.__proto__,'value')
+    Object.defineProperty(ck, 'value', {
+      get: function(){
+        return valueDescriptor.get.call(ck)
+      },
+      set: function(val) {
+        return valueDescriptor.set.call(ck, val.replace(/[WQX]/g, '*'))
+      }
+    })
+  </script>
+</body>
+</html>

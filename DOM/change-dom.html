@@ -1,0 +1,16 @@
+<p>The <img src=" img / cat . png" alt="Cat">in the<img src=" img / hat . png" alt="Hat">.</p>
+<p><button onclick="replaceImages()"> Replace </button></p>
+
+<script>
+  // 如果想用循环将DOM接口中返回的类数组对象遍历去做replace，需要反着遍历。
+  // 因为类数组对象是动态的，它会随着replace的运行发生长度变化，然后就触碰到循环的退出条件了。
+  // 可以通过.call将类数组对象用.slice()复制一份得到静态数组。或者更简单的方式直接用Array.from.
+  function replaceImages() {
+    var imgs = document.getElementsByTagName('img')
+    for(var i = imgs.length - 1 ; i >= 0 ; i--) {
+      var img = imgs[i]
+      var text = document.createTextNode(img.alt)
+      img.parentNode.replaceChild(text, img)
+    }
+  }
+</script>

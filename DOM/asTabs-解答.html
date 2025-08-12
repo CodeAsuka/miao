@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    <div data-tabname="明日香">Asuka</div>
+    <div data-tabname="七海麻美">MamiNanami</div>
+    <div data-tabname="时崎狂三">Kurumi</div>
+  </div>
+  <script>
+    function asTabs(node) {
+      var childs = Array.from(node.children)
+      var buttons = []
+      var childDiv = document.createElement('div')
+      var buttonDiv = document.createElement('div')
+      var lastDisplayIndex = 0
+      for(let i = 0 ; i < childs.length ; i++) {
+        let child = childs[i]
+        child.style.display = 'none'
+        childDiv.append(child)
+        let btn = document.createElement('button')
+        btn.textContent = child.dataset.tabname
+        buttonDiv.append(btn)
+        buttons.push(btn)
+
+        btn.addEventListener('click', e => {
+          buttons[lastDisplayIndex].style.color = 'black'
+          childs[lastDisplayIndex].style.display = 'none'
+          btn.style.color = 'red'
+          child.style.display = 'block'
+          lastDisplayIndex = i
+        })
+      }
+      buttons[0].click()
+      node.append(buttonDiv, childDiv)
+    }
+    asTabs(document.querySelector('div'))
+  </script>
+</body>
+</html>

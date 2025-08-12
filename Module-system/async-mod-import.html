@@ -1,0 +1,8 @@
+<script type="module">
+  import * as test from './async-module.js' //import语句会提前，哪怕前面有一句debugger也没用
+  console.log(test)
+
+  setTimeout(() => {
+    console.log(test)
+  }, 11000)
+</script>

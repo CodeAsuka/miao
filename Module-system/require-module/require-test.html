@@ -1,0 +1,25 @@
+<script>
+  function readFile(filePath) {
+    var xhr = new XMLHttpRequest()
+    xhr.open('get', filePath, false)
+    xhr.send()
+    return xhr.responseText
+  }
+
+  var cache = Object.create(null)
+  function require(filePath) { 
+    if(filePath in cache)
+      return cache[filePath]
+    var code = readFile(filePath)
+
+    var moduleFunc = new Function('module, exports', code)
+
+    var module = {exports: {}}
+    cache[filePath] = module
+    moduleFunc(module, module.exports)
+    return module.exports
+  }
+
+  // require('./main.js')
+  require('./a.js')
+</script>

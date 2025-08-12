@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    div {
+      border: 3px solid;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <button>Asuka</button>
+  </div>
+  <script>
+    var div = document.querySelector('div')
+    var button = document.querySelector('button')
+    var body = document.querySelector('body')
+    button.addEventListener('click', e => {
+      console.log('button click')
+    })
+    button.addEventListener('click', e => {
+      console.log('button click capture')
+    }, {
+      capture: true
+    })
+    div.addEventListener('click', e => {
+      console.log('div click propagation')
+    })
+    div.addEventListener('click', e => {
+      console.log('div click capture')
+    }, {
+      capture: true
+    })
+    body.addEventListener('click', e => {
+      console.log('body click propagation')
+    })
+    body.addEventListener('click', e => {
+      console.log('body click capture')
+    }, {
+      capture: true
+    })
+  </script>
+</body>
+</html>

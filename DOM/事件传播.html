@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    <button>Asuka</button>
+  </div>
+  <script>
+    var btn = document.querySelector('button')
+    var div = document.querySelector('div')
+    var body = document.body
+    btn.addEventListener('click', e => {
+     console.log(1)
+     e.stopPropagation() // 防止事件传播，输出1 3 2
+    //  e.stopImmediatePropagation() // 立刻停止，只会输出1
+     console.log(3)
+    })
+    btn.addEventListener('click', e => console.log(2))
+    div.addEventListener('click', e => console.log('div click', e.target, e.srcElement))
+    body.addEventListener('click', e => console.log('body click'))
+  </script>
+</body>
+</html>
