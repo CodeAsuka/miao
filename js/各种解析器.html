@@ -1,0 +1,93 @@
+<script> // JSON解析器
+//递归下降法：对于递归结构的解析，通过为每种语法实现一个解析函数
+//解析函数开始时全局指针指向这个值在文本中开始的位置
+//解析函数根据说法将其解析出来，并移动指针到这个值结束位置的后面
+//由于结构可能是递归嵌套的，所以函数之间的调用也能映射出这种嵌套关系
+  function parseJSON(input) {
+    var i = 0
+    return parseVal()
+    function parseVal() {
+      if(input[i] == '{')
+        return parseObj()
+      else if(input[i] == '"')
+        return parseStr()
+      else if(input[i] == '[')
+        return parseArray()
+      else if(input.slice(i, i+4) == 'true' || input.slice(i, i+5) == 'false')
+        return parseBoolean()
+      else
+        return parseNum()
+    }
+    function parseStr() {
+      i++
+      var start = i
+      while(input[i] != '"') {
+        i++
+      }
+      var result = input.slice(start, i)
+      i++
+      return result
+    }
+    function parseNum() {
+      var start = i
+      while(input[i] >= '0' && input[i] <= '9') {
+        i++
+      }
+      return Number(input.slice(start, i))
+    }
+    function parseArray() {
+      var result = []
+      i++
+      if(input[i] == ']') {
+        i++
+        return result
+      }
+      while(i < input.length) {
+        var val = parseVal()
+        result.push(val)
+        if(input[i] == ',')
+          i++
+        else if(input[i] == ']') {
+          i++
+          break
+        }
+      }
+      return result
+    }
+    function parseObj() {
+      i++
+      var result = {}
+      if(input[i] == '}') {
+        i++
+        return result
+      }
+      while(i < input.length) {
+        var key = parseStr()
+        if(input[i] == ':')
+          i++
+        result[key] = parseVal()
+        if(input[i] == ',')
+          i++
+        else if(input[i] == '}') {
+          i++
+          break    
+        }
+      }
+      return result
+    }
+    function parseBoolean() {
+      if (input[i] == 't') {
+        i += 4
+        return true
+      }
+      else {
+        i += 5
+        return false
+      }
+    }
+  }
+</script>
+
+<script>
+  
+</script>

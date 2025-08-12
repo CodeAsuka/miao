@@ -1,0 +1,724 @@
+<script> //判断一个数是否是素数
+  var isPrime = function(num) {
+    var num1 = true
+    for(var i = 2; i <= Math.sqrt(num) ;i++) {
+      if (num % i == 0) 
+        return !num1
+    }
+    return num1
+  }
+</script>
+
+<script> //判断一个数是否和7相关（能被7整除或者某一位数字是7）
+  var isAboutSeven = function(num) {
+    var num1 = true
+    if (num % 7 == 0)
+      return num1
+    else if (num % 7 !== 0) {
+      var result = num
+      for(var i = 0 ; i < String(num).length ; i++) {
+        var digit = result % 10
+        result = (result - digit) / 10
+        if (digit == 7)
+          return num1
+      }
+    } else
+        return !num
+  }
+</script>
+<script>
+  function isCompleteNumber(n) {
+      var sum = 1
+      var n_sqrt = Math.sqrt(n)
+      for(var i = 2 ; i < n_sqrt ; i++) {
+          if (n % i == 0) {
+              sum += i + n / i
+          }
+      }
+      if (Number.isInteger(n_sqrt) === true)
+          sum += n_sqrt
+      if (sum == n)
+          return true
+      else
+          return false
+  }
+
+  function isPalindrome(n) {
+      if (n < 0)
+          return false
+      var reversal = 0
+      var n_origin = n
+      while (n > 0) {
+          var digit = n % 10
+          reversal = reversal * 10 + digit
+          n = (n - digit) / 10
+      }
+      if (reversal == n_origin)
+          return true
+      else 
+          return false
+  }
+
+  function isNarcissistic(n) {
+      if (n < 0)
+          return false
+      var origin_n = n
+      var sum = 0
+      while(n > 0){
+          var digit = n % 10
+          n = (n - digit) / 10
+          sum += digit ** String(origin_n).length
+      }
+      if (sum == origin_n)
+          return true
+      else
+          return false
+  }
+</script>
+
+<script>
+  //幂运算
+  function  power(x , n) {
+      if (n == 0)
+          return 1
+      else {
+          return x * power(x , n - 1) 
+      }
+  }
+  //阶乘
+  function factorial(n) {
+      if (n < 2) {
+          return 1
+      } else {
+          return n * f(n - 1)
+      }
+  }
+  // 斐波那契数列优雅写法（如果n的数字稍微大一点运算量将会过大，因为有多处重复运算。
+  // 比如fib（50）如果用本设备(MacBook Air M3 8+10核） 来运算的话需要一分钟左右，fib（100）则要惊人的大约440年）
+  function fib(n) {
+      if ( n < 3)
+          return 1
+      else 
+          return fib(n - 1) + fib(n - 2)
+  }
+</script>
+<script>
+  // 优化过的斐波那契数列，舍弃部分优雅程度换取高效的性能，fib(大数值)也能快速得到运算
+  // 简单来说，优雅的解法导致速度慢是因为有大量对低项结果的重复运算。
+  // 所以在通过数组给低项赋值以后可以大大增加效率减少过多不必要的重复运算以及函数调用和return
+  var fibs = [0,1,1,2,3,5,8,13]
+  function fib(n) {
+      if (fibs[n] > 0)
+          return fibs[n]
+      else 
+          return fibs[n] = fib(n - 1) + fib(n - 2)
+  }
+</script>
+
+<script>
+  // 递归案例：加5或者乘以3
+  function findSoluion(target) {
+      function find(current , history) {
+          if (target == current)
+            return history
+          else if (current > target)
+            return null
+          else {
+            return find(current + 5 , history + "+5") || find(current * 3 , "(" + history + ")*3")
+          }
+      }
+      return find(1 , "1")
+  }
+</script>
+
+<script>
+  // 通过定义1和0的奇偶然后通过递归让输入值N不断减2得到1或者0来判断N的奇偶
+  function isEven(N) {
+    if(N < 0)
+      return isEven(-N)
+    else if (N == 0)
+      return true
+    else if (N == 1)
+      return false
+    else {
+      return isEven(N - 2)
+    }
+  }
+</script>
+
+<script> //将数字转化成字符串的函数
+  function itob(n) {
+    var str = ""
+    var ten = Math.abs(n)
+    if (n == 0)
+      return "0"
+    do {
+      var digit = ten % 10 
+      ten = (ten - digit) / 10
+      str = ge(digit) + str
+    } while (ten > 0)
+    if (n < 0)
+      return ("-" + str)
+    else
+      return str
+  }
+  function ge(digit) {
+    if (digit == 0)
+      return "0"
+    if (digit == 1)
+      return "1"
+    if (digit == 2)
+      return "2"
+    if (digit == 3)
+      return "3"
+    if (digit == 4)
+      return "4"
+    if (digit == 5)
+      return "5"
+    if (digit == 6)
+      return "6"
+    if (digit == 7)
+      return "7"
+    if (digit == 8)
+      return "8"
+    if (digit == 9)
+      return "9"
+  }
+</script>
+
+<script>
+  // 写一个函数输入年份和月份可以得到这个月的第一天是星期几
+  // 判断是否是闰年的函数
+  function isLeapYear(year) {
+    return (year % 400 == 0 || (year % 100 !== 0 && year % 4 == 0))
+  }
+  
+  function mdays(year , month) {
+    switch(month) {
+      case 1:
+      case 3:
+      case 5:
+      case 7:
+      case 8:
+      case 10:
+      case 12:
+        return 31
+      case 2:
+        if(isLeapYear(year))
+          return 29
+        else
+          return 28
+      default:
+        return 30
+    }
+  }
+  // 总函数
+  function weekday(year , month) {
+    var totaldays = 0
+    for(var y = 1 ; y < year ; y++) {
+      if(isLeapYear(year))
+        totaldays += 366
+      else
+        totaldays += 365
+    }
+    for(var m = 1 ; m < month ; m++) {
+      totaldays += mdays(year , m)
+    }
+    return (totaldays + 2) % 7
+  }
+</script>
+
+<script> // 求参数最大值的函数
+  function max() {
+    var max = - Infinity
+    for(var  i = 0 ; i < arguments.length ; i++) {
+      if (arguments[i] > nums)
+        max = arguments[i] 
+    }
+    return max
+  }
+</script>
+
+<script> //写一个能计算纯浮点数二进制的函数(自己瞎写的)
+  function binury(n) {
+    var result = "0."
+    for(var i = 0 ; i < 49 ; i++) { //64bit的话1位表示正负，十一位表示指数，四十八位表示底数
+      n *= 2
+      if(n > 1) {
+        result += "1"
+        n -= 1
+      } else if(n < 1) {
+        result += "0"
+      }
+      if(n == 1) {
+        return +result
+      }
+    }
+    return result
+  }
+</script>
+
+<script> // 排序算法
+  
+  // 生成由随机数生成的长度为leng的数组。
+  // 里面的数都小于leng
+  function randomArray(leng) {
+    var r = []
+    for(var i = 0 ; i < leng ; i++) {
+      r.push(Math.trunc((Math.random() * leng)))
+    }
+    return r
+  }
+  // 判断数组是否是有序的（升序）
+  function isSorted(array) {
+    for(var i = 1 ; i < array.length ; i++) {
+      if(array[i] < array[i - 1])
+        return false
+    }
+    return array
+  }
+  // 插入排序：将数组通过插入的方式排序（升序）
+  function insertSort(array) {
+    for(var i = 1 ; i < array.length ; i++) {
+      var value = array[i]
+      for(var j = i - 1 ; j >= 0 ; j--) {
+        if (value < array[j]) {
+          array[j + 1] = array[j]
+        } else { 
+          break
+        }
+      }
+      array[j + 1] = value
+    }
+    return array
+  }
+  // 调换数组中的两项
+  function swap(array , i , j) {
+    var t = array[i]
+    array[i] = array[j]
+    array[j] = t
+    return array
+  }
+
+/**选择排序：
+ * 每次选择数组中最小的元素依次放到数组的前面
+ * 处于前面位置上的数跟这个最小的数换个位置  
+ */
+  function selectSort(array) {
+    for(var i = 0 ; i < array.length - 1; i++) {
+      var minIndex = i
+      for(var j = i + 1 ; j < array.length ; j++) {
+        if (array[j] < array[minIndex])
+          minIndex = j
+      }
+      swap(array , i , minIndex)
+    }
+    return array
+  }
+
+  // 冒泡排序法
+  function bubbleSort(array) {
+    for(var i = array.length - 2 ; i >= 0 ;i--) {
+      var swapped = true
+      for(var j = 0 ; j <= i ; j++) {
+        if(array[j] > array[j + 1]) {
+          swap(array , j , j + 1)
+          swapped = false
+        }
+      }
+      if (swapped == true)
+        break
+    }
+    return array
+  }
+
+  //快速排序法1
+  //空间复杂度2N 
+  function quickSort1(array) { 
+    if (array.length < 2)
+      return array.slice()
+    var left = []
+    var middle = []
+    var right = []
+    var num = array[Math.trunc(Math.random() * array.length)]
+    for(var i = 0 ; i < array.length ; i++) {
+      if(array[i] < num)
+        left.push(array[i])
+      else if (array[i] > num)
+        right.push(array[i])
+      else
+        middle.push(array[i])
+    }
+    left = quickSort1(left)
+    right = quickSort1(right)
+    return left.concat(middle , right)
+  }
+
+  //快速排序法2 (通过哨兵原地排序)
+  function quickSort2(array , start = 0 , end = array.length - 1) {
+    if(end - start < 1)
+      return array
+    var pivotIndex = Math.trunc(Math.random() * (end - start + 1) + start)
+    var pivot = array[pivotIndex]
+    swap(array , pivotIndex , end)
+    var i = start
+    for(var j = start ; j < end ; j++) {
+      if(array[j] < pivot) {
+        swap(array , i , j)
+        i++
+      }
+    }
+    swap(array , i , end)
+    quickSort2(array , start , i - 1)
+    quickSort2(array , i + 1 , end)
+    return array
+  }
+
+  //归并排序
+  function mergeSort(array) {
+    if(array.length < 2)
+      return
+    var midIdx = array.length >> 1
+    var left = array.slice(0, midIdx)
+    var right = array.slice(midIdx)
+    
+    mergeSort(left)
+    mergeSort(right)
+    
+    var i = 0
+    var j = 0
+    var k = 0
+    
+    while(i < left.length && j < right.length) {
+      if (left[i] <= right[j])
+        array[k++] = left[i++]
+      else 
+        array[k++] = right[j++]
+    }
+    while(i < left.length) {
+      array[k++] = left[i++]
+    }
+    while(j < right.length) {
+      array[k++] = right[j++]
+    }
+
+    return array 
+  }
+</script>
+
+<script> //根据邮箱中用户名字的最后一位数字大小排序邮箱
+  
+  //提取出邮箱用户名字的最后一位数字,如果不是数字就返回0
+  function emailNum(e) {
+    var username = (e.split("@"))[0]
+    var num = Number((username.charAt(username.length - 1)))
+    if(typeof num !== "number")
+      return 0
+    else
+      return num
+  }
+  //设置比较规则
+  function NumSort(e1 , e2) {
+    if(emailNum(e1) > emailNum(e2))
+      return 1
+    else if (emailNum(e1) < emailNum(e2))
+      return -1
+    else
+      return 0
+  }
+  // 调换数组中的两项
+  function swap(array , i , j) {
+    var t = array[i]
+    array[i] = array[j]
+    array[j] = t
+    return array
+  }
+  //对填满了邮箱的数组根据规则进行排序
+  function emailSort(array , start = 0 , end = array.length - 1) {
+    if(end - start < 1)
+      return array
+    var pivotIndex = Math.trunc(Math.random() * (end - start + 1) + start)
+    var pivot = array[pivotIndex]
+    swap(array , pivotIndex , end)
+    var i = start
+    for(var j = start ; j < end ; j++) {
+      if(NumSort(array[j] , pivot) == -1) {
+        swap(array , i , j)
+        i++
+      }
+    }
+    swap(array , i , end)
+    emailSort(array , start , i - 1)
+    emailSort(array , i + 1 , end)
+    return array
+  }
+</script>
+
+<script> // 数组扁平化函数
+  // 傻子做法
+  function flatten(arrays) {
+    var result = []
+    for(var i = 0 ; i < arrays.length ; i++) {
+      var array = arrays[i]
+      result.push(...array)
+    }
+    return result
+  }
+  
+  // 正常应该的写法
+  function flatten1(arrays) {
+    return arrays.reduce((a , b) => a.concat(b) , []) //考虑到有可能面对传参是空数组或者数组第一项是不能使用.concat的类型所以初始值设置一个空数组
+  }
+
+  function flattenDeep(array) { // 深度扁平化（通过递归的方法，可以扁平化任何层数的数组）
+    var result = []
+    for(var i = 0 ; i < array.length ; i++) {
+      if(Array.isArray(array[i]))
+        result.push(...flattenDeep(array[i]))
+      else
+        result.push(array[i]) 
+    }
+    return result
+  }
+
+  function flattenDeep1(array) {
+    return array.reduce((a , b) => 
+      a.concat(Array.isArray(b) ? flattenDeep1(b) : b),[])
+  }
+</script>
+
+<script> // 对比两个值是否在结构和内容上完全相等
+  function deepEqual(val1 , val2) {
+    if (val1 && val2 && typeof val1 === "object" && typeof val2 === "object") {
+      if (Array.isArray(val1) && Array.isArray(val2) || !Array.isArray(val1) && !Array.isArray(val2)) {
+        var c = 0
+        for(var key in val1) {
+          c++
+        }
+        for(var key in val2) {
+          c--
+        }
+        if(c !== 0) {
+          return false
+        }
+        for(var key in val1) {
+          if(!(key in val2) || !deepEqual(val1[key] , val2[key]))
+            return false
+        }
+        return true
+      } else 
+        return false
+    }
+    return val1 === val2
+  }
+</script>
+
+<script>  // 将字符串（如 ((3)6(5))8((5)7(1))）解析为二叉树
+  function binuryTree(treeString) {
+    if (treeString === "")
+      return null
+    var count = 0
+    for(var i = 0 ; i < treeString.length ; i++) {
+      if (treeString[i] === "(")
+        count++
+      else if (treeString[i] === ")")
+        count--
+      else if (count === 0)
+        break
+    }
+    var topTree = {
+      val : treeString[i],
+      left : null,
+      right: null
+    }
+    var leftStr = treeString.slice(0 , i)
+    var rightStr = treeString.slice(i + 1)
+    if (leftStr[0] === "(")
+      leftStr = leftStr.slice(1 , -1)
+    if (rightStr[0] === "(")
+      rightStr = rightStr.slice(1 , -1)
+    topTree.left = binuryTree(leftStr)
+    topTree.right = binuryTree(rightStr)
+    return topTree
+  }
+  // 将记录在数组中的完全二叉树还原
+  function arrayToTree(array , rootPos = 0) {
+      var val = array[rootPos]
+      if(val == null)
+        return null
+      var node = {
+        val : val,
+        left : null,
+        right : null
+      }
+      node.left = arrayToTree(array , rootPos * 2 + 1)
+      node.right = arrayToTree(array , rootPos * 2 + 2)
+      return node
+    }
+  
+  // 反过来讲二叉树转换回数组
+    function treeToArray(tree , rootPos = 0 , array = []) {
+      if (tree == null)
+        return array
+      array[rootPos] = tree.val
+      treeToArray(tree.left , rootPos * 2 + 1 , array)
+      treeToArray(tree.right , rootPos * 2 + 2 , array)
+      return array
+    }
+  
+  // 数组转稠密的二叉树
+    function condensedArrayToTree(array) {
+      if (array.length < 1)
+        return null
+      var nodeVal = array[0]
+      if(nodeVal == null)
+        return null
+      var rootNode = {
+        val : nodeVal,
+        left : null,
+        right : null,
+      }
+      var nodes = [rootNode]
+      for(var i = 1 ; i < array.length ; i++) {
+        var currentNode = nodes.shift()
+        if(array[i] != null) {
+          var node = {
+            val : array[i],
+            left : null,
+            right : null,
+          }
+          nodes.push(node)
+          currentNode.left = node
+        }
+          i++
+        if(array[i] != null) {
+          var node = {
+            val : array[i],
+            left : null,
+            right : null,
+          }
+          nodes.push(node)
+          currentNode.right = node
+        }
+      }
+      return rootNode
+    }
+  
+  // 将稠密的二叉树转成数组
+    function treeToCondensedArray(root) {
+      var result = []
+      if(root == null)
+        return result
+      var nodes = [root]
+      while(nodes.length > 0) {
+        var currentNode = nodes.shift()
+        if (currentNode == null) {
+          result.push(null)
+        } else {
+          result.push(currentNode.val)
+          nodes.push(currentNode.left, currentNode.right)
+        }
+      }
+      for(var i = result.length - 1 ; result[i] == null ; i--) {
+        result.pop()
+      }
+      return result
+    }
+
+    //二叉树的前序遍历，中序遍历和后序遍历只要换下位置就行
+  function preOrderTraversal(root , action) {
+    if(root) {
+      action(root.val)
+      preOrderTraversal(root.left , action)
+      preOrderTraversal(root.right , action)
+    }
+  }
+  // 中序遍历
+  function inOrderTraversal(root , action) {
+    if(root) {
+      inOrderTraversal(root.left , action)
+      action(root.val)
+      inOrderTraversal(root.right , action)
+    }
+  }
+  // 后序遍历
+  function postOrderTraversal(root , action) {
+    if(root) {
+      postOrderTraversal(root.left , action)
+      postOrderTraversal(root.right , action)
+      action(root.val)
+    }
+  }
+  
+  // 排序二叉树（BST : Binury Search Tree）
+  // 直译是二叉搜索树
+  // 每个节点的左子树中所有的节点都小于根节点
+  // 每个节点的右子树中所有的节点都大于等于根节点
+  // 对一个排序二叉树进行中序（左中右）或反向中序（右中左）遍历
+
+  // 用bst实现一个排序算法
+  // 将val插入到排序二叉树root中，并返回新的根节点
+  function insertIntoBST(root , val) {
+    if(root == null) {
+      return {
+        val : val,
+        left : null,
+        right : null,
+      }
+    }
+    if(val < root.val)
+      root.left = insertIntoBST(root.left , val)
+    else
+      root.right = insertIntoBST(root.right , val)
+    return root
+  }
+  
+  // 先将数组中所有的值插入到bst中
+  // 然后中序遍历bst，并将值放回数组中
+  // 复杂度分析 ：
+  // 时间复杂度 ：O(N*logN) (当构建的bst比较平衡的时候)
+  // 空间复杂度 : O(n)
+  // 当输入数组基本有序时，程序构建的bst将退化为有序链表，时间复杂度将为O(n*n)
+  function bstSort(array) {
+    var root = null
+    for(var i = 0 ; i < array.length ; i++) {
+      root = insertIntoBST(root , array[i])
+    }
+    var i = 0
+    inOrderTraversal(root , val => {
+      array[i++] = val
+    })
+    return array
+  }
+
+  /**
+  * bst无法保持自平衡，所以并不能实际地应用
+  * 存在另外的树可以有更多的规则，能够在当保持规则时让树保持平衡
+  * 如avl树，红黑树
+  */
+  </script>
+
+
+<div id="treeView"></div> 
+<script>
+  //二叉树图形化
+  function viewTree(root) {
+    var html = treeHTML(root)
+    treeView.innerHTML = html  
+  }
+
+  function treeHTML(root) {
+    if(root) {
+      return `<div style="background-position: 35% 0.8em;background-size: 20% 1em;background-repeat: no-repeat; background-image: linear-gradient(to bottom right,transparent 49%,red 49%,red 51%,transparent 51%)">
+                <header style="text-align:center">${root.val}</header>
+                <div style="display : flex">
+                  <aside style="width:0;flex-grow : 1">${treeHTML(root.left)}</aside>
+                  <aside style="width:0;flex-grow : 1">${treeHTML(root.right)}</aside>
+                </div>
+              </div>`
+    }
+    return ""
+  }
+  var root = condensedArrayToTree([1,2,3,4,null,5,0,6,7,8,9])
+  viewTree(root)
+</script>

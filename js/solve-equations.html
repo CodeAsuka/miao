@@ -1,0 +1,26 @@
+<script>
+    // 解一元二次方程： a * x * x + b * x + c = 0
+    var a = 3
+    var b = 9
+    var c = 4
+    var Δ = b * b - 4 * a * c  
+    var x1 = (-b + (Δ ** 0.5)) / (2 * a)
+    var x2 = (-b - (Δ ** 0.5)) / (2 * a)
+
+    console.log("x1 =" , x1)
+    console.log("x2 =" , x2)
+</script>
+
+<script>
+    // 解二元一次方程： ax+by=c, dx+ey=f
+    var a = 1
+    var b = 2
+    var c = 5
+    var d = 2
+    var e = -3
+    var f = 88
+    var x = (f * b - c * e) / (d * b - a * e)
+    var y = (c * d - f * a) / (b * d - e * a)
+    console.log("x=" + x)
+    console.log("y=" + y)
+</script>

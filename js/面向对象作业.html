@@ -1,0 +1,304 @@
+<script>
+  // 向量
+  class Vector {
+    constructor(x, y) {
+      this.x = x
+      this.y = y
+    }
+    plus(v) {
+      return new Vector(this.x + v.x, this.y + v.y)
+    }
+    minus(v) {
+      return new Vector(this.x - v.x, this.y - v.y)
+    }
+    get length() {
+      return Math.sqrt(this.x ** 2 + this.y ** 2)
+    }
+  }
+  var a = new Vector(1, 2)
+  var b = new Vector(4, 5)
+  var c = a.plus(b) // new Vector(5,7)
+  console.log(c.x) // 5
+  console.log(c.y) // 7
+  console.log(c.length) // results in Math.sqrt(5*5+7*7)
+
+  // Complex表示一个复数，
+  // 它有两个属性，real表示实部，imag表示虚部
+  class Complex {
+    constructor(real, imag) {
+      this.real = real
+      this.imag = imag + 'i'
+    }
+    plus(c) {
+      return new Complex(this.real + c.real, Number(this.imag.split('i')[0]) + Number(c.imag.split('i')[0]))
+    }
+    minus(c) {
+      return new Complex(this.real - c.real, Number(this.imag.split('i')[0]) - Number(c.imag.split('i')[0]))
+    }
+    mul(c) {
+      var one = this.real * c.real
+      var two = this.real * Number(c.imag.split('i')[0])
+      var three = Number(this.imag.split('i')[0]) * c.real
+      var four = Number(this.imag.split('i')[0]) * Number(c.imag.split('i')[0]) * -1
+      return new Complex(one + four, two + three)
+    }
+    div(c) {
+      return new Complex(
+        (this.real * c.real + Number(this.imag.split('i')[0]) * Number(c.imag.split('i')[0])) / (c.real ** 2 + Number(c.imag.split('i')[0] )** 2),
+        (Number(this.imag.split('i')[0]) * c.real - this.real * Number(c.imag.split('i')[0])) / (c.real ** 2 + Number(c.imag.split('i')[0] )** 2)
+      )
+    }
+  }
+  var d = new Complex(1, 2) // 1+2i
+  var e = new Complex(3, -4) // 3-4i
+  var f = d.plus(e) // 4-2i
+  var g = e.mul(f) // 4-22i (i^2 = -1)
+  console.log(g.real) // 4
+  console.log(g.imag) // -22i
+
+  // Array
+  //实现一个类似js中Array的类型
+  //即长度可变的数组
+  //实现过程中只能通过new Array(n)创建出固定长度的数组
+  //此后再也不能修改这个数组的长度
+  class ArrayList {
+    constructor(n = 8) {
+      this._capacity = n
+      this._vals = new Array(this._capacity)
+      this._length = 0
+    }
+    //返回第idx位置的值
+    at(idx) {
+      if(idx < -this._length || idx >= this._length || this._length == 0)
+        return undefined
+      else if(idx >= 0)
+        return this._vals[idx]
+      else
+        return this._vals[idx + this._length]
+
+    }
+    push(val) {
+      if(this._length == this._capacity) {
+        this._capacity *= 2
+        var newVals = new Array(this._capacity)
+        for(var i = 0 ; i < this._length ; i++) {
+          newVals[i] = this._vals[i]
+        }
+        this._vals = newVals
+        this.length++
+      }
+      this._vals[this._length++] = val
+    }
+    pop() {
+      if (this._length == 0)
+        return undefined
+      else if(this._capacity >= 32 && this._length <= this._capacity / 4) {
+        this._capacity /= 2
+        var newVals = new Array(this._capacity)
+        for(var i = 0 ; i < this._length - 1 ; i++) {
+          newVals[i] = this._vals[i]
+        }
+        var result = this._vals[this._length - 1]
+        this._vals = newVals
+        this._length--
+        return result
+      } else
+        return this._vals[--this._length]
+
+    }
+    //返回数组中元素的数量
+    get length() {
+      return this._length
+    }
+    //修改length会自动截断删除length以外的值
+    set length(l) {
+      if (l < this._length) {
+        this._length = l
+      }
+    }
+  }
+  var h = new ArrayList()
+  for(var i = 0 ; i < 100 ; i++) {
+    h.push(i)
+  }
+  console.log(h.at(15)) // 15
+  console.log(h.at(80)) // 80
+  console.log(h.length) // 100
+  console.log(h.pop()) // 99
+  console.log(h.length) // 99
+
+  // 用单向链表实现一个先进先出的队列
+  class Queue {
+    constructor() {
+      this._head = null
+      this._tail = null
+      this._size = 0
+    }
+    //将值val放进队列，放进队列的元素会先进先出
+    enqueue(val) {
+      var node = {
+        val : val,
+        next : null,
+      }
+      if(this._size == 0) {
+        this._head = this._tail = node
+      } else {
+        this._tail.next = node
+        this._tail = node
+      }
+      this._size++
+      return this // 哪怕不用特别return东西就return this，这样方便写链式结构
+    }
+    //返回队头元素，当队列为空时，返回undefined
+    dequeue() {
+      if(this._size == 0)
+        return undefined
+      else if(this._size == 1) {
+        var result = this._head
+        this._head = this._tail = null
+        this._size--
+        return result
+      }
+      else {
+        var result = this._head
+        this._head = this._head.next
+        this._size--
+        return result
+      }
+    }
+    //返回但不删除队头元素
+    peek() {
+      return this._head
+    }
+    //返回队列的长度
+    get size() {
+      return this._size
+    }
+  }
+  var q = new Queue()
+  q.enqueue(5)
+  q.enqueue(6)
+  console.log(q.dequeue()) // 5
+  q.enqueue(8)
+  q.enqueue(9)
+  console.log(q.dequeue()) // 6
+  console.log(q.dequeue()) // 8
+  console.log(q.size) // 1
+
+  //表达一个“集合”
+  //即元素不重复的合集
+  class MySet {
+    constructor() {
+      this._elements = new Array()
+      this._size = this._elements.length
+    }
+    //往集合里面增加一个元素,但元素如果已经在集合里，元素就不用增加了。
+    add(val) {
+      if(!this.has(val)) {
+        this._elements.push(val)
+        this._size++
+      }
+      return this
+    }
+    // 判断集合中是否有val
+    has(val) {
+      return this._elements.includes(val)
+    }
+    // 从集合中删除val
+    delete(val) {
+      for(var i = 0 ; i < this._elements.length ; i++) {
+        if(this._elements[i] === val) {
+          this._elements.splice(i, 1)
+          this._size--
+          break
+        }
+      }
+      return this
+    }
+    //清空集合中的元素
+    clear() {
+      this._elements = new Array()
+      this._size = 0
+    }
+    //返回集合中元素的数量
+    get size() {
+      return this._size
+    }
+  }
+  var s = new MySet()
+  s.add(1)
+  s.add(1)
+  console.log(s.size) // 1
+  s.add(2)
+  console.log(s.size) // 2
+  s.delete(1)
+  console.log(s.size) // 1
+  s.has(2) // true
+  s.has(1) // false
+
+
+  //表达一个映射
+  //每组映射由一个key和一个value确定
+  //增删改查
+  //实现过程中不能将对象作为映射来使用（意思是不能使用对象“随意增减属性”的功能）
+  class MyMap {
+    constructor() {
+      this._keys = []
+      this._vals = []
+      this._size = 0
+    }
+    //把key的值设置为val
+    //如果存在key，将其值由旧的映射为新的
+    //如果不存在key，则新增这一组映射
+    set(key, val) { // obj[key] = val
+      for(var i = 0 ; i < this._size ; i++) {
+        if(key === this._keys[i]) {
+          this._vals[i] = val
+          return this
+        }
+      }
+      this._keys.push(key)
+      this._vals.push(val)
+      this._size++
+      return this
+    }
+    // 获取key的映射目标   obj[key]
+    get(key) {
+      for(var i = 0 ; i < this._size ; i++) {
+        if(key === this._keys[i])
+          return this._vals[i]
+      }
+      return undefined
+    }
+    //判断当前map中是否存在key   key in obj
+    has(key) {
+      for(var i = 0 ; i < this._size ; i++) {
+        if(key === this._keys[i])
+          return true
+      }
+      return false
+    }
+    // 删除key对应的映射对
+    delete(key) { //    delete  obj[key]
+      for(var i = 0 ; i < this._size ; i++) {
+        if(key === this._keys[i]) {
+          this._keys.splice(i, 1)
+          this._vals.splice(i, 1)
+          this._size--
+          return this
+        }
+      }
+      return undefined
+    }
+    clear() {
+      this._size = 0
+      this._keys.length = 0
+      this._vals.length = 0
+      return this
+    }
+    //返回当前map中映射对的数量
+    get size() {
+      return this._size
+    }
+  }
+</script>

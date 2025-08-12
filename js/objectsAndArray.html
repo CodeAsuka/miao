@@ -1,0 +1,264 @@
+<script>
+// 把输入的字符串作为参数，计算出里面有多少个B
+  function countBs(str) {
+    var c = 0
+    for(var i = 0 ; i < str.length ; i++) {
+      if (str[i] == "B")
+        c++
+    }
+    return c
+  }
+</script>
+<script>
+// 和上一个函数countBs()差不多，唯一区别是计算里面有多少个变量char输入的字符
+  function countChars(str, char) {
+    var c = 0
+    for(var i = 0 ; i < str.length ; i++) {
+      if (str[i] == char)
+        c++
+    }
+    return c
+  }
+
+// 已经有了这个函数了所以重写countBs()会更方便
+  function countBs(str) {
+    return countChars(str, "B")
+  }
+// 自己写的对比两个数组是否一样的函数
+  function isDeepEqual(a, b) {
+    if (a.length == b.length) {
+      var same = 0
+      for (var i = 0 ; i < a.length ; i++) {
+        if (a[i] == b[i])
+          same++
+      }
+      return same == a.length
+    }
+    else
+      return false
+  }
+</script>
+
+<script>
+  //上一个函数老师的写法，果然优雅多了QAQ
+  //不管是老师写的还是我写的，如果数组中放了对象就不行，我们只考虑用==能给出他们是不是相同的结果的情况
+  function isDeepEqual(a, b) {
+    if (a.length !== b.length)
+      return false
+    for(var i = 0 ; i < a.length ; i++) {
+        if(a[i] !== b[i])
+          return false
+      }
+      return true
+  }
+
+  //在array中查找value的下标，找到返回下标，找不到返回-1
+  function indexOf(array, value) {
+    for(var i = 0 ; i < array.length ; i++) {
+      if (array[i] == value)
+        return i
+    }
+    return -1
+  }
+</script>
+
+
+<script>
+  //                         松鼠人故事
+  // 让我们一步一步拆解想要实现这个故事的每一部分的代码，最后再组装到一起。
+</script>
+
+<script>
+  /* 松鼠人二元变量表计算函数，计算出来的值课根据以下标准参考：
+     变量之间的相关性表示为-1到1的值。
+     1表示完全正相关
+     -1表示完全负相关
+     0表示完全不相关
+     根据公式计算的值看更接近哪个数字来做出判断
+     我的写法和《Eloquent JavaScript》以及老师写的有区别：
+     二维数组可以比较直观容易联想，我认为优点是可读性高，缺点是效率不够高。
+     公式： phi = N11*N00 - N10*N01 / sqrt(N1*N0*N1*N0)
+     表格：
+        ————————————————————————————————————————————
+       ｜ 没有变松鼠，没有吃比萨 76 ｜ 没有变松鼠，吃比萨 9｜
+        ————————————————————————————————————————————
+       ｜ 变松鼠，没有吃比萨    4  ｜ 变松鼠，吃比萨     1｜
+        ————————————————————————————————————————————
+  */
+  var table = [[76,9],   
+               [4 ,1]]
+  function phi(table) {
+    return (table[1][1] * table[0][0] - table[1][0] * table[0][1]) /
+    Math.sqrt((table[1][0] + table[1][1]) *
+              (table[0][1] + table[0][0]) *
+              (table[0][1] + table[1][1]) *
+              (table[0][0] + table[1][0]) )
+  }
+/** 事实证明有更好的方法就应该学习并采用而不是逃避。
+* 接下来我会将下标理解为二进制的高效的一维数组的写法呈现出来。
+*/
+</script>
+<script>
+/** [76, 9, 4, 1]
+ *   0   1  2  3
+ *   00  01 10 11
+ * 注意写函数时不要依赖外部变量，需要用的时候填参数就行了，
+ * 因为我们比较倾向于写一个纯函数。
+*/  
+  function phi(table) {
+    return ((table[3] * table[0]) - (table[2] * table[1])) /
+    Math.sqrt((table[2] + table[3]) *
+              (table[0] + table[1]) *
+              (table[1] + table[3]) * 
+              (table[0] + table[2]) )
+  }
+</script>
+
+<script>
+  //                         松鼠人故事总模块
+  //接下来让我们导入课本中的庞大数组来看看故事主人公记录的九十天日志
+  var JOURNAL = [
+    {"events":["carrot","exercise","weekend"],"squirrel":false},
+    {"events":["bread","pudding","brushed teeth","weekend","touched tree"],"squirrel":false},
+    {"events":["carrot","nachos","brushed teeth","cycling","weekend"],"squirrel":false},
+    {"events":["brussel sprouts","ice cream","brushed teeth","computer","weekend"],"squirrel":false},
+    {"events":["potatoes","candy","brushed teeth","exercise","weekend","dentist"],"squirrel":false},
+    {"events":["brussel sprouts","pudding","brushed teeth","running","weekend"],"squirrel":false},
+    {"events":["pizza","brushed teeth","computer","work","touched tree"],"squirrel":false},
+    {"events":["bread","beer","brushed teeth","cycling","work"],"squirrel":false},
+    {"events":["cauliflower","brushed teeth","work"],"squirrel":false},
+    {"events":["pizza","brushed teeth","cycling","work"],"squirrel":false},
+    {"events":["lasagna","nachos","brushed teeth","work"],"squirrel":false},
+    {"events":["brushed teeth","weekend","touched tree"],"squirrel":false},
+    {"events":["lettuce","brushed teeth","television","weekend"],"squirrel":false},
+    {"events":["spaghetti","brushed teeth","work"],"squirrel":false},
+    {"events":["brushed teeth","computer","work"],"squirrel":false},
+    {"events":["lettuce","nachos","brushed teeth","work"],"squirrel":false},
+    {"events":["carrot","brushed teeth","running","work"],"squirrel":false},
+    {"events":["brushed teeth","work"],"squirrel":false},
+    {"events":["cauliflower","reading","weekend"],"squirrel":false},
+    {"events":["bread","brushed teeth","weekend"],"squirrel":false},
+    {"events":["lasagna","brushed teeth","exercise","work"],"squirrel":false},
+    {"events":["spaghetti","brushed teeth","reading","work"],"squirrel":false},
+    {"events":["carrot","ice cream","brushed teeth","television","work"],"squirrel":false},
+    {"events":["spaghetti","nachos","work"],"squirrel":false},
+    {"events":["cauliflower","ice cream","brushed teeth","cycling","work"],"squirrel":false},
+    {"events":["spaghetti","peanuts","computer","weekend"],"squirrel":true},
+    {"events":["potatoes","ice cream","brushed teeth","computer","weekend"],"squirrel":false},
+    {"events":["potatoes","ice cream","brushed teeth","work"],"squirrel":false},
+    {"events":["peanuts","brushed teeth","running","work"],"squirrel":false},
+    {"events":["potatoes","exercise","work"],"squirrel":false},
+    {"events":["pizza","ice cream","computer","work"],"squirrel":false},
+    {"events":["lasagna","ice cream","work"],"squirrel":false},
+    {"events":["cauliflower","candy","reading","weekend"],"squirrel":false},
+    {"events":["lasagna","nachos","brushed teeth","running","weekend"],"squirrel":false},
+    {"events":["potatoes","brushed teeth","work"],"squirrel":false},
+    {"events":["carrot","work"],"squirrel":false},
+    {"events":["pizza","beer","work","dentist"],"squirrel":false},
+    {"events":["lasagna","pudding","cycling","work"],"squirrel":false},
+    {"events":["spaghetti","brushed teeth","reading","work"],"squirrel":false},
+    {"events":["spaghetti","pudding","television","weekend"],"squirrel":false},
+    {"events":["bread","brushed teeth","exercise","weekend"],"squirrel":false},
+    {"events":["lasagna","peanuts","work"],"squirrel":true},
+    {"events":["pizza","work"],"squirrel":false},
+    {"events":["potatoes","exercise","work"],"squirrel":false},
+    {"events":["brushed teeth","exercise","work"],"squirrel":false},
+    {"events":["spaghetti","brushed teeth","television","work"],"squirrel":false},
+    {"events":["pizza","cycling","weekend"],"squirrel":false},
+    {"events":["carrot","brushed teeth","weekend"],"squirrel":false},
+    {"events":["carrot","beer","brushed teeth","work"],"squirrel":false},
+    {"events":["pizza","peanuts","candy","work"],"squirrel":true},
+    {"events":["carrot","peanuts","brushed teeth","reading","work"],"squirrel":false},
+    {"events":["potatoes","peanuts","brushed teeth","work"],"squirrel":false},
+    {"events":["carrot","nachos","brushed teeth","exercise","work"],"squirrel":false},
+    {"events":["pizza","peanuts","brushed teeth","television","weekend"],"squirrel":false},
+    {"events":["lasagna","brushed teeth","cycling","weekend"],"squirrel":false},
+    {"events":["cauliflower","peanuts","brushed teeth","computer","work","touched tree"],"squirrel":false},
+    {"events":["lettuce","brushed teeth","television","work"],"squirrel":false},
+    {"events":["potatoes","brushed teeth","computer","work"],"squirrel":false},
+    {"events":["bread","candy","work"],"squirrel":false},
+    {"events":["potatoes","nachos","work"],"squirrel":false},
+    {"events":["carrot","pudding","brushed teeth","weekend"],"squirrel":false},
+    {"events":["carrot","brushed teeth","exercise","weekend","touched tree"],"squirrel":false},
+    {"events":["brussel sprouts","running","work"],"squirrel":false},
+    {"events":["brushed teeth","work"],"squirrel":false},
+    {"events":["lettuce","brushed teeth","running","work"],"squirrel":false},
+    {"events":["candy","brushed teeth","work"],"squirrel":false},
+    {"events":["brussel sprouts","brushed teeth","computer","work"],"squirrel":false},
+    {"events":["bread","brushed teeth","weekend"],"squirrel":false},
+    {"events":["cauliflower","brushed teeth","weekend"],"squirrel":false},
+    {"events":["spaghetti","candy","television","work","touched tree"],"squirrel":false},
+    {"events":["carrot","pudding","brushed teeth","work"],"squirrel":false},
+    {"events":["lettuce","brushed teeth","work"],"squirrel":false},
+    {"events":["carrot","ice cream","brushed teeth","cycling","work"],"squirrel":false},
+    {"events":["pizza","brushed teeth","work"],"squirrel":false},
+    {"events":["spaghetti","peanuts","exercise","weekend"],"squirrel":true},
+    {"events":["bread","beer","computer","weekend","touched tree"],"squirrel":false},
+    {"events":["brushed teeth","running","work"],"squirrel":false},
+    {"events":["lettuce","peanuts","brushed teeth","work","touched tree"],"squirrel":false},
+    {"events":["lasagna","brushed teeth","television","work"],"squirrel":false},
+    {"events":["cauliflower","brushed teeth","running","work"],"squirrel":false},
+    {"events":["carrot","brushed teeth","running","work"],"squirrel":false},
+    {"events":["carrot","reading","weekend"],"squirrel":false},
+    {"events":["carrot","peanuts","reading","weekend"],"squirrel":true},
+    {"events":["potatoes","brushed teeth","running","work"],"squirrel":false},
+    {"events":["lasagna","ice cream","work","touched tree"],"squirrel":false},
+    {"events":["cauliflower","peanuts","brushed teeth","cycling","work"],"squirrel":false},
+    {"events":["pizza","brushed teeth","running","work"],"squirrel":false},
+    {"events":["lettuce","brushed teeth","work"],"squirrel":false},
+    {"events":["bread","brushed teeth","television","weekend"],"squirrel":false},
+    {"events":["cauliflower","peanuts","brushed teeth","weekend"],"squirrel":false}
+  ];
+  //接下来写一个可以得出前面公式所需的二元变量的二维表格的函数，表格用数组表示。
+  function tableFor(event, journal) {
+    var table = [0, 0, 0, 0]
+    for(var i = 0 ; i < journal.length ; i++) {
+      var index = 0
+      if (journal[i].events.includes(event))
+        index++
+      if (journal[i].squirrel)
+        index += 2
+      table[index]++
+    }
+    return table
+  }
+  //把前面写过的计算phi值公式的函数放进这个松鼠人故事的总模块
+  function phi(table) {
+    return ((table[3] * table[0]) - (table[2] * table[1])) /
+    Math.sqrt((table[2] + table[3]) *
+              (table[0] + table[1]) *
+              (table[1] + table[3]) * 
+              (table[0] + table[2]) )
+  }
+  
+  var phiObj = {} // 创建一个对象储存事件对应的phi值
+  for(var i = 0 ; i < JOURNAL.length ; i++) {
+    var entry = JOURNAL[i]
+    for(var j = 0 ; j < entry.events.length ; j++) {
+      var event1 = entry.events[j]
+      if (!(event1 in phiObj)) {
+        var p = phi(tableFor(event1, JOURNAL))
+        phiObj[event1] = p
+      }
+    }
+  }
+
+//输出phi相对较大的事件供我们检查和思考
+  for(var event2 in phiObj) {
+    if (Math.abs(phiObj[event2]) > 0.1)
+      console.log(event2, phiObj[event2])
+  }
+
+// 因为吃花生相关性最高，其次是不刷牙，所以往两者同时满足的日子里加两者结合的新事件
+  for(var i = 0 ; i < JOURNAL.length ; i++) {
+    var entry = JOURNAL[i]
+    if (entry.events.includes("peanuts") && !(entry.events.includes("brushed teeth"))) {
+      entry.events.push("peanuts teeth")
+    }
+  }
+
+  //通过已有的函数计算新事件的相关值
+  phi(tableFor("peanuts teeth",JOURNAL))
+  // 计算出结果是1,说明不刷牙且吃花生一定会变成松鼠人
+  //至此，所有编程和计算完成，故事结尾可看书本第48页。
+</script>

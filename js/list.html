@@ -1,0 +1,153 @@
+<script> // 数组转链表的函数
+  function arrayToList(array) {
+    if (array.length == 0)
+      return null // 空链表默认填充值为null
+    var nodes = []
+    for(var i = 0 ; i < array.length ; i++) {
+      var node = {
+        val : array[i],
+        next : null,
+      }
+      nodes.push(node)
+    }
+    for(var i = 1 ; i < nodes.length ; i++) {
+      nodes[i - 1].next = nodes[i]
+    }
+    return nodes[0]
+  }
+// 数组转链表的函数2
+  function arrayToList2(array) {
+    var r = {
+      val : 0,
+      next : null,
+    }
+    var p = r // 让p和r都指向同一个对象，p用于在循环中遍历数组，r用于最后return
+    for(var i = 0 ; i < array.length ; i++) {
+      var node = {
+        val : array[i],
+        next : null
+      }
+      p.next = node 
+      p = node
+    }
+    return r.next
+  }
+
+// 数组转链表的函数3（递归写法）
+  function arrayToList3(array) {
+    if (array.length == 0)
+      return null
+    var head = {
+      val : array[0],
+      next : null,
+    }
+    head.next = arrayToList3(array.slice(1))
+    return head
+  }
+
+  // 把值拼到链表前面的函数
+  function prepend(val, list) {
+    var head = {
+      val : val,
+      next : null,
+    }
+    head.next = list
+    return head
+  } 
+  // 根据一个链表还有一个数字，返回链表中那个位置的元素
+  function nth(head , idx) {
+    if (idx < 0)
+      return undefined
+    for(var i = 0 ; i < idx ; i++) {
+      if (head)
+        head = head.next
+      else
+        return undefined
+    }
+    return head.val
+  }
+
+//nth的递归版本
+  function nth2(head , idx) {
+    if(idx < 0)
+      return undefined
+    if (head == null)
+      return undefined
+    if(idx == 0)
+      return head.val
+    return nth2(head.next , idx - 1)
+  }
+
+//链表转数组的的函数（自写）
+  function listToArray(head) {
+    if (head == null)
+      return []
+    var a = []
+    while(head) {
+      a.push(head.val)
+      head = head.next
+    }
+    return a
+  }
+  // 链表转数组递归写法
+  function listToArray2(head) {
+    if(head == null)
+      return []
+    return [head.val].concat(listToArray2(head.next))
+  }
+
+// 往链表末尾添加一个值的函数（自写）
+  function append(val, head) {
+    var node = {
+      val : val,
+      next : null,
+    }
+    if(!head)
+      return node
+    var p = head
+    while(p.next) {
+      p = p.next
+    }
+    p.next = node
+    return head
+  }
+
+// 往链表的i位置插入一项的函数
+  function insert(val, head, i) {
+    var node = {
+      val : val,
+      next : null,
+    }
+    if (!head)
+      return node
+    if (i <= 0) {
+      node.next = head
+      return node
+    }
+    var p = head
+    for(var j = 1 ; j < i && p.next ; j++) {
+      p = p.next
+    }
+    node.next = p.next
+    p.next = node
+    return head
+  }
+
+// 删除链表中第i项的函数
+  function remove(head , idx) {
+    if (!head)
+      return null
+    if (idx <= 0) {
+      return head.next
+    }
+    var p = head
+    for(var i = 1 ; i < idx && p.next ; i++) {
+      p = p.next
+    }
+    if (p.next) {
+      p.next = p.next.next
+      return head
+    } else
+      return head
+  }
+</script>

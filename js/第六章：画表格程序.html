@@ -1,0 +1,214 @@
+<script>
+  function rowHeights(rows) { // 返回一个数组里面放着每行所需的高度
+    return rows.map(row => {
+      return Math.max(...row.map(cell => cell.minHeight()))
+    })
+  }
+  function colWidths(rows) { // 返回一个数组里面放着每列所需的最宽宽度
+    return rows[0].map((_,colIdx) => { // 先用map取第0行的下标然后把rows根据下标分为若干列。
+      return Math.max(...rows.map(row => { // 然后再用一个map把rows的每一行的所有单元格提取出来根据第一个map的下标返回一每一项存放着每一列的所有单元格的数组。
+        return row[colIdx]                     // 然后把这个数组再map一遍用Math.max把每一列的最宽的单元格的宽度提取出来组成一个数组。最后把那个数组返回出来。
+      }).map(cell => cell.minWidth()))
+    })
+  }
+  function drawTable(rows) {
+    var heights = rowHeights(rows);
+    var widths = colWidths(rows);
+    function drawLine(blocks, lineNo) {
+      return blocks.map(function (block) {
+        return block[lineNo];
+      }).join(" ");
+    }
+    function drawRow(row, rowNum) {
+      var blocks = row.map(function (cell, colNum) {
+        return cell.draw(widths[colNum], heights[rowNum]);
+      });
+      return blocks[0].map(function (_, lineNo) {
+        return drawLine(blocks, lineNo);
+      }).join("\n");
+    }
+    return rows.map(drawRow).join("\n");
+  }
+  class TextCell { //文本单元格数据类型
+    constructor(text) {
+      this.lines = text.split("\n") // 把传进来的字符串参数以回车为界分出的一个个值然后将他们组成一个数组lines
+    }
+    minWidth() { // 获取最小宽度的函数
+      return Math.max(...this.lines.map(line => line.length)) //通过map把每个单元格的内容宽度提取出来组成一个数组然后选出其中的最大值作为最小宽度（最起码一个单元格应该预留多少位置）
+    }
+    minHeight() { // 获取最小高度的函数
+      return this.lines.length // 数组的每一项是一行，那么数组的长度当然就是表格的高度啦
+    }
+    draw(width, height) {
+      var result = [] // 创建结果数组
+      for(var i = 0 ; i < height ; i++) { // 用for循环遍历每一个单元格
+        var line = this.lines[i] || "" 
+        while(line.length < width) { // 当单元格宽度小于最小宽度时，
+          line += " "                // 给后面加空格直至对齐
+      }
+        result.push(line) // 往结果数组push处理过后的单元格
+      }
+      return result //返回结果数组
+    }
+  }
+  class HeaderCell { // 画一个周围有边框的TextCell也就是表头
+    constructor(text) {
+      this.lines = text.split("\n") // 把传进来的字符串参数以回车为界分出的一个个值然后将他们组成一个数组lines
+    }
+    minWidth() { // 获取最小宽度的函数
+      return Math.max(...this.lines.map(line => line.length)) + 2 //宽度加2是因为左右边框
+    }
+    minHeight() { // 获取最小高度的函数
+      return this.lines.length + 2 // 高度加二是因为上下边框
+    }
+    draw(width, height) {
+      var border = "+" + "-".repeat(width - 2) + "+" //上下边框
+      var result = [border] // 创建结果数组
+      for(var i = 0 ; i < height - 2 ; i++) { // 用for循环遍历每一个单元格
+        var line = this.lines[i] || "" 
+        while(line.length < width - 2) { // 当单元格宽度小于最小宽度时，
+          line += " "                // 给后面加空格直至对齐（记得把加的边框宽度减掉）
+      }
+        result.push("|" + line + "|") // 往结果数组push处理过后的单元格(带左右边框的)
+      }
+      result.push(border)
+      return result //返回结果数组
+    }
+  }
+  class UnderlinedCell { // 接收一个格为参数将它变成下划线格,不管你是什么格，只要是格就行，因为里面的用法是通用的（这就是面向对象的多态特性）。有点a像HTML的嵌套格式。
+    constructor(cell) {
+      this.cell = cell
+    }
+    minWidth() {
+      return this.cell.minWidth()
+    }
+    minHeight() {
+      return this.cell.minHeight() + 1
+    }
+    draw(width, height) {
+      var ret = this.cell.draw(width,height - 1)
+      ret.push("-".repeat(width))
+      return ret
+    }
+  }
+  // 构建一个带边框的表格
+  class BorderCell { 
+    constructor(cell) {
+      this.cell = cell
+    }
+    minWidth() {
+      return this.cell.minWidth() + 2
+    }
+    minHeight() {
+      return this.cell.minHeight() + 2
+    }
+    draw(width, height) {
+      var ret = this.cell.draw(width - 2, height - 2)
+      for(var i = 0; i < ret.length; i++) {
+        ret[i] = "|" + ret[i] + "|"
+      }
+      var upBorder = "#" + "-".repeat(width - 2) + "#"
+      ret.push(upBorder)
+      ret.unshift(upBorder)
+      return ret
+    }
+  }
+  // 构建一个右对齐的表格
+  class RightAlignTextCell {
+    constructor(text) {
+      this.text = text.split('\n')
+    }
+    minHeight() {
+      return this.text.length
+    }
+    minWidth() {
+      return Math.max(...this.text.map(row => row.length))
+    }
+    draw(width, height) {
+      var result = []
+      for(var i = 0 ; i < height; i++) {
+        var val = this.text[i] || ''
+        while(val.length < width) {
+          val = ' ' + val
+        }
+        result.push(val)
+      }
+      return result
+    }
+  }
+  var table = [
+  [new HeaderCell("Name"), new HeaderCell("Pilot ID"), new HeaderCell("Mecha")],
+  [new TextCell("Rei"), new TextCell("First Pilot"), new TextCell("Unit-00")],
+  [new BorderCell(new UnderlinedCell(new TextCell("Asuka"))), new TextCell("Second Pilot"), new TextCell("Unit-02")],
+  [new TextCell("Shinji"), new TextCell("Third Pilot"), new TextCell("Unit-01")],
+  [new TextCell("Mari"), new TextCell("No Specific ID"), new TextCell("Unit-05, Unit-08")],
+  [new TextCell("Kaworu"), new RightAlignTextCell("Fifth Pilot"), new TextCell("Unit-13")],
+  ]
+  var s = drawTable(table)
+  console.log(s)
+
+  var MOUNTAINS = [
+    {name: "Kilimanjaro", height: 5895, country: "Tanzania"},
+    {name: "Everest", height: 8848, country: "Nepal"},
+    {name: "Mount Fuji", height: 3776, country: "Japan"},
+    {name: "Mont Blanc", country: "Italy/France", height: 4808},
+    {name: "Vaalserberg", height: 323, country: "Netherlands"},
+    {name: "Denali", height: 6168, country: "United States"},
+    {name: "Popocatepetl",  country: "Mexico", height: 5465}
+  ];
+  
+  var hills = []
+  var headerNames = Object.keys(MOUNTAINS[0])
+  var header = []
+  for(var key of headerNames) {
+    header.push(new UnderlinedCell(new TextCell(key)))
+  }
+  hills.push(header)
+  for(var mountain of MOUNTAINS) {
+    var line = []
+    for(var key of headerNames) {
+      if(typeof mountain[key] === 'number')
+        line.push(new RightAlignTextCell(String(mountain[key])))
+      else
+        line.push(new TextCell('' + mountain[key]))
+    }
+    hills.push(line)
+  }
+  
+  var mountainsTable = drawTable(hills)
+  console.log(mountainsTable)
+  //实现该函数，让它绘制一个和console.table(objArray)类似的表格
+  //返回表格的html代码
+  //可以通过ducument.write(htmlCode)将其显示在页面中
+  function consoleTable(objArray) {
+    var headerNames = Array.from(new Set(objArray.map(line => Object.keys(line)).flat()))
+    var result = '<table border = 1><tr><th>Index</th>'
+    for(var name of headerNames) {
+      result += '<td>' + name + '</td>'
+    }
+    result += '</tr>'
+    for(var i = 0 ; i < objArray.length ; i++) {
+      result += '<tr><th class = "pink">' + i + '</th>'
+      for(var name of headerNames) {
+        if(name in objArray[i]) {
+          if(typeof objArray[i][name] == 'string')
+            result += '<td class = "skyBlue">'+ objArray[i][name] + '</td>'
+          else if(typeof objArray[i][name] == 'number')
+            result += '<td class = "purple">'+ objArray[i][name] + '</td>'
+          else
+            result += '<td>'+ objArray[i][name] + '</td>'
+        } else
+          result += '<td></td>'
+      }
+      result += '</tr>'
+    }
+    result += '</table>'
+    return result
+  }
+  document.write(consoleTable(MOUNTAINS))
+</script> 
+<style>
+  .pink {color: pink;}
+  .skyBlue {color: skyblue}
+  .purple {color: purple;}
+</style>

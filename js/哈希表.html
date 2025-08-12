@@ -1,0 +1,189 @@
+<script>
+  //开放地址法解决哈希冲突的哈希表实现
+  class HashMap2 {
+    constructor() {
+      this._keys = new Array(16)
+      this._vals = new Array(16)
+      this._size = 0
+    }
+    _hash(key) {
+      var seed = 131313
+      var hash = 0
+      for(var i = 0 ; i < key.length ; i++) {
+        hash = ((hash * seed >>> 0 ) + key.charCodeAt(i)) >>> 0 
+      }
+      return hash % this._keys.length
+    }
+    扩容() {
+      var oldKeys = this._keys
+      var oldVals = this._vals
+      this._size = 0
+      this._keys = new Array(oldKeys.length * 2)
+      this._vals = new Array(this._vals.length * 2)
+      for(var i = 0 ; i < oldKeys.length ; i++) {
+        if(oldKeys[i] != null)
+          this.set(oldKeys[i], oldVals[i])
+      }
+      return this
+    }
+    set(key, val) {
+      var idx = this._hash(key)
+      for(var i = idx, j = 0 ; j < this._keys.length ; i++, j++) {
+        if(i == this._keys.length)
+          i = 0
+        if(this._keys[idx] == key) {
+          this._vals[i] = val
+          return this
+        } else if(this._keys[i] == null) {
+          this._keys[i] = key
+          this._vals[i] = val
+          this._size++
+          if(this._size / this._keys.length > 0.75)
+            this.扩容()
+          return this
+        }
+      }
+    }
+    get(key) {
+      var idx = this._hash(key)
+      for(var i = idx, j = 0 ; j < this._keys.length ; i++, j++) {
+        if(i == this._keys.length)
+          i = 0
+        if(this._keys[idx] == key)
+          return this._vals[idx]
+        else if(this._keys[idx] == null)
+          return undefined
+      }
+      return undefined
+    }
+  }
+  //链式存储法解决哈希冲突的哈希表实现
+  class HashMap {
+    constructor() {
+      this._capacity = 16
+      this._lists = new Array(this._capacity).fill(null)
+      this._growFactor = 0.75
+      this._shrinkFactor = 0.125
+      this._size = 0
+    }
+    _hash(key) {
+      if(typeof key == 'number')
+        key = 'N-' + key
+      else if(typeof key == 'string')
+        key = 'S-' + key
+      var seed = 131313
+      var hash = 0
+      for(var i = 0 ; i < key.length ; i++) {
+        hash = ((hash * seed >>> 0 ) + key.charCodeAt(i)) >>> 0 
+      }
+      return hash % this._capacity
+    }
+    loadFactor() {
+      return this._size / this._capacity
+    }
+    grow() {
+      var oldLists = this._lists
+      this._capacity *= 2
+      this._lists = new Array(this._capacity)
+      this._size = 0
+      for(var list of oldLists) {
+        var p = list
+        while(p) {
+          this.set(p.key, p.val)
+          p = p.next
+        }
+      }
+    }
+    shrink() {
+      var oldLists = this._lists
+      this._capacity /= 2
+      this._lists = new Array(this._capacity).fill(null)
+      for(var i = 0 ; i < oldLists.length ; i++) {
+        this.set(oldLists[i].key, oldLists[i].val)
+      }
+      return this
+    }
+    set(key, val) {
+      var idx = this._hash(key)
+      var p = this._lists[idx]
+      while(p) {
+        if(p.key == key) {
+          p.val = val
+          return this
+        }
+        p = p.next
+      }
+      var node = {
+        key : key,
+        val : val,
+        next : null
+      }
+      node.next = this._lists[idx]
+      this._lists[idx] = node
+      this._size++
+      if(this.loadFactor() > this._growFactor)
+        this.grow()
+      return this
+    }
+    get(key) {
+      var idx = this._hash(key)
+      var p = this._lists[idx]
+      if(!p)
+        return undefined
+      while(p) {
+        if(p.key == key)
+          return p.val
+        p = p.next
+      }
+      return undefined
+    }
+    has(key) {
+      var idx = this._hash(key)
+      var p = this._lists[idx]
+      if(!p)
+        return false
+      while(p) {
+        if(p.key == key)
+          return true
+        p = p.next
+      }
+      return false
+    }
+    delete(key) {
+      var idx = this._hash(key)
+      var p = this._lists[idx]
+      if(!p)
+        return false
+      if(p.key == key) {
+        p = p.next
+        this._size--
+        if(this.loadFactor() < this._shrinkFactor)
+          this.shrink()
+        return true
+      }
+      while(p) {
+        if (p.next.key == key) {
+          p.next = p.next.next
+          this._size--
+          if(this.loadFactor() < this._shrinkFactor)
+            this.shrink()
+          return true
+        }
+        p = p.next
+      }
+      return false
+    }
+    forEach(action) {
+      for(var list of this._lists) {
+        var p = list
+        while(p) {
+          action(p.val, p.key)
+          p = p.next
+        }
+      }
+    }
+    get size() {
+      return this._size
+    }
+  }
+</script>
