@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>todo - data center</title>
+  <style>
+    li.completed {
+      text-decoration: line-through;
+      color: #666;
+    }
+    ul.visible-active li.completed{
+      display: none;
+    }
+    ul.visible-completed li:not(.completed) {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    /**
+     * 以数据为中心实现的todo list虽然结局了数据与ui的一致性问题
+     * 但是它还是可以进一步优化的:
+     * 1.我们必须手动调用renderPage()来画页面
+     *   目标:数据变了自动调用
+     * 2.由于使用的是事件代理,所以很多不同元素的操作都放在同一个函数的不同片段,
+     * 而且还是根据雷鸣和某种选择器定位到相应元素
+     *   目标1:每个按钮或元素的操作单独放在一个函数里
+     *   目标2:直接把函数放在元素上而不是在事件代理函数里判断事件来源于哪个元素
+     * 3.模版语法(js模版字符串，要是以前只能是字符串拼接，那更慢更难受)不够友好
+     *   目标:更友好的模版写法
+     * 4.模版结构并不是就地出现在页面里的
+     *   目标:若果能直接出现在页面里可能更方便
+     * 5.不管数据有多么微小的变化我们都是全量更新app元素中的innerHTML,
+     * 当页面太大时，必然会导致性能浪费,最终卡顿,
+     * 当给innerHTML赋值时,浏览器是会解析给写的html字符串为dom的,这个是有隐含耗时的
+     *   目标:只更新需要更新的部分,而不是全量更新html
+     *   (但是现在是字符串，想通过innerHTML的方式只更新需要更新的部分不太好做)
+     *   (这些字符串其实表达的是html结构，也即树状结构)(所以我们想要可能是对两棵树比较差异)
+     * 
+     * 但是孩子不用担心,Vue.js它来啦!!!
+     */
+
+    var todos = JSON.parse(localStorage.getItem('TODOS')) || [
+      {
+        text: '你好',
+        completed: false,
+      },
+      {
+        text: '我是一个基于原生javascript的简单好用的TodoList',
+        completed: false,
+      },
+      {
+        text: '准备好了就开始记录吧',
+        completed: false,
+      }
+    ]
+
+    renderPage()
+    app.addEventListener('keydown', e => {
+      if(e.key == 'Enter') {
+        if(e.target.matches('input[type="text"]')) {
+          var text = e.target.value.trim()
+          if(text) {
+            var todo = {
+              text: text,
+              completed: false,
+            }
+            todos.push(todo)
+            renderPage()
+            app.querySelector('input[type="text"]').focus()
+          }
+        }
+      }
+    })
+
+    app.addEventListener('click', e => {
+      var idx = e.target.dataset.idx
+      if(e.target.matches('li button')) {
+        todos.splice(idx, 1)
+        renderPage()
+      } else if(e.target.matches('li input[type="checkbox"]')) {
+        todos[idx].completed = !todos[idx].completed
+        renderPage()
+      } else if(e.target.matches('.toggle-all')) {
+        if(todos.every(todo => todo.completed)) {
+          todos.forEach(todo => {
+            todo.completed = false
+          })
+        } else {
+          todos.forEach(todo => {
+            todo.completed = true
+          })
+        }
+        renderPage()
+      } else if(e.target.matches('.clear')) {
+        todos = todos.filter(todo => !todo.completed)
+        renderPage()
+      }
+    })
+    function renderPage(){
+      localStorage.setItem("TODOS", JSON.stringify(todos))
+      app.innerHTML = `
+        <div>
+          <h1>Todos</h1>
+          <div>
+            <input type="checkbox" class="toggle-all" ${todos.every(todo => todo.completed) ? 'checked' : ''}>
+            <input type="text" placeholder="what needs to be done?">
+          </div>
+          <ul>
+            ${todos.map((todo, idx) => {
+              return `
+                <li class="${todo.completed ? "completed" : "active"}">
+                  <input data-idx="${idx}" type="checkbox" ${todo.completed ? 'checked' : ''}>
+                  <span>${todo.text}</span>
+                  <button data-idx="${idx}">&times;</button>
+                </li>
+              `
+            }).join('')}
+          </ul>
+          <span>${todos.filter(todo => !todo.completed).length} items left</span>
+          <div id="category-select">
+            <label for=""><input type="radio" checked name="selected-category" value="all"> All</label>
+            <label for=""><input type="radio" name="selected-category" value="active"> Active</label>
+            <label for=""><input type="radio" name="selected-category" value="completed"> Completed</label>
+          </div>
+          ${todos.some(it => it.completed) ?
+            '<button class="clear">Clear Completed</button>' :
+            ''
+          }
+        </div>
+      `
+    }
+  </script>
+</body>
+</html>

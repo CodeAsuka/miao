@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    li:has(input[type="checkbox"]:checked) span{
+      text-decoration: line-through;
+      color: #666;
+    }
+    ul.visible-active li:has(input[type="checkbox"]:checked) {
+      display: none;
+    }
+    ul.visible-completed li:not(:has(input[type="checkbox"]:checked)) {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Todos</h1>
+   <div id="app">
+    <div>
+      <input type="checkbox" @click="toggleAll()" :checked="todos.every(todo => todo.completed == true)">
+      <input type="text" @keydown="addTodo($event)" placeholder="what needs to be done?">
+    </div>
+    <ul :class="'visible-' + activeCategory">
+      <li v-for="(todo, idx) of todos">
+        <input type="checkbox" v-model="todo.completed">
+        <span>{{ todo.text }}</span>
+        <button @click="deleteTodo(idx)">&times;</button>
+      </li>
+    </ul>
+    <span>{{ todos.filter(it => it.completed == false).length }} item{{ todos.filter(it => it.completed == false).length > 1 ? 's' : ''}} left</span>
+    <div>
+      <label><input type="radio" v-model="activeCategory" value="all">All</label>
+      <label><input type="radio" v-model="activeCategory" value="active">Active</label>
+      <label><input type="radio" v-model="activeCategory" value="completed">Completed</label>
+    </div> 
+    <button v-show="todos.some(todo => todo.completed)" @click="clearCompleted()">clear completed</button>
+  </div> <!-- v-show只是把元素隐藏但是还在dom里,但是v-if就是直接从dom里删除,如果我们的元素是频繁切换的那就用v-show -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el:'#app',
+      // 这里放程序的数据和状态,可以放对象或者函数，这里直接放函数方便我们操作，因为自带一个作用域了直接
+      data() {
+        return {
+          todos: [
+          {
+            text: '你好',
+            completed: false,
+          },
+          {
+            text: '我是一个用基于Vue2搭建的TodoList',
+            completed: false,
+          },
+          {
+            text: '准备好了就开始记录吧',
+            completed: false,
+          }
+        ],
+        activeCategory: 'all',
+        }
+      },
+      methods: {
+        addTodo(e) {
+          if(e.key == 'Enter') {
+            var text = e.target.value.trim()
+            if(text) {
+              var todo = {
+                text,
+                completed: false,
+              }
+              this.todos.push(todo)
+              e.target.value = ''
+            }
+          }
+        },
+        deleteTodo(idx) {
+          this.todos.splice(idx,1)
+        },
+        clearCompleted() {
+          this.todos = this.todos.filter(todo => !todo.completed)
+        },
+        toggleAll() {
+          if(this.todos.every(todo => todo.completed)) {
+            this.todos.forEach(todo => todo.completed = false)
+          } else {
+            this.todos.forEach(todo => todo.completed = true)
+          }
+        }
+      }
+    })
+
+    /** Summary
+     * vue模板语法:
+     * {{expr}} 可以在标签之间插值
+     * :attr='expr' 属性插值
+     * v-for='(item, idx) of/in array' 把它想成for-of-loop就好了
+     * @eventname='func()' 绑定事件
+     * v-if='expr' 元素的存在(于dom中)与否
+     * v-show='expr' 元素的显影(display:none)
+     * v-model='expr' 双向绑定:变量的值会影响到元素的状态,用户与元素的交互状态又会回到变量上
+     */
+  </script>
+</body>
+</html>

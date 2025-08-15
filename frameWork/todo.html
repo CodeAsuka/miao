@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>todo</title>
+  <style>
+    li.completed span{
+      text-decoration: line-through;
+      color: #666;
+    }
+    ul.visible-active li.completed {
+      display: none;
+    }
+    ul.visible-completed li:not(.completed) {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>todos</h1>
+  <div>
+    <input type="checkbox" id="toggle-all">
+    <input type="text" id="todo-input" placeholder="what needs to be done?">
+  </div>
+  <ul class="visible-all">
+
+  </ul>
+  <div>
+    <span id="left-count">0 items left!</span>
+    <div id="category-select">
+      <label for=""><input type="radio" checked name="selected-category" value="all"> All</label>
+      <label for=""><input type="radio" name="selected-category" value="active"> Active</label>
+      <label for=""><input type="radio" name="selected-category" value="completed"> Completed</label>
+    </div>
+    <button>Clear Completed</button>
+  </div>
+  <script>
+    var todoList = document.querySelector('ul')
+    var todoInput = document.querySelector('#todo-input')
+    var leftCount = document.querySelector('#left-count')
+    var toggleAll = document.querySelector('#toggle-all')
+    var categorySelect = document.querySelector('#category-select')
+    var count = 0
+
+    todoInput.addEventListener('keydown', e => {
+      if(e.key == 'Enter') {
+        var todoText = todoInput.value.trim() //.trim()可以把字符串两边的空白去掉,防止用户填写空白内容提交
+        if(todoText) {
+          var li = document.createElement('li')
+          li.innerHTML = `
+            <input type="checkbox">
+            <span>${todoText}<span>
+            <button>&times;</button>
+          `
+          li.querySelector('button').addEventListener('click', () => {
+            todoList.removeChild(li)
+            if(!li.classList.contains('completed'))
+            count--
+            updateLeftCount(count)
+            updateToggleAll()
+          })
+          li.querySelector('input[type="checkbox"]').addEventListener('change', function() {
+            if(this.checked) {
+              li.classList.add('completed')
+              count--
+              updateLeftCount(count)
+              updateToggleAll()
+            } else {
+              li.classList.remove('completed')
+              count++
+              updateLeftCount(count)
+              updateToggleAll()
+            }
+          })
+          todoList.appendChild(li)
+          todoInput.value = ''
+          count++
+          updateLeftCount(count)
+        }
+      }
+    })
+
+    toggleAll.addEventListener('click', () => {
+      var lis = Array.from(todoList.children)
+      if(lis.every(it => it.classList.contains('completed'))) {
+        lis.forEach(it => {
+          it.classList.remove('completed')
+          it.querySelector('input').checked = false
+        })
+        count = lis.length
+        updateLeftCount(count)
+      } else {
+        lis.forEach(it => {
+          it.classList.add('completed')
+          it.querySelector('input').checked = true
+        })
+        count = 0
+        updateLeftCount(count)
+      }
+    })
+
+    categorySelect.addEventListener('click', (e) => {
+      if(e.target.matches('input[type="radio"]')) {
+        todoList.className = 'visible-' + e.target.value
+      }
+    })
+
+    function updateLeftCount(count) {
+      if(count > 1 && count!= 0) {
+        leftCount.textContent = `${count} items left`
+      } else {
+        leftCount.textContent = `${count} item left`
+      }
+    }
+
+    function updateToggleAll() {
+      var lis = Array.from(todoList.children)
+      if(lis.every(it => it.classList.contains('completed'))) {
+        toggleAll.checked = true
+      } else {
+        toggleAll.checked = false
+      }
+    }
+  </script>
+</body>
+</html>
